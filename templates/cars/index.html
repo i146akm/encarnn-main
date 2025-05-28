@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/adaptive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Главная</title>
+</head>
+<body id="index">
+    {% include 'components/header.html' %}
+    {% include 'components/filter-korea.html' %}
+    <section class="sec-2">
+        <div class="container">
+            <h1>Популярные автомобили</h1>
+            <nav class="sec-2-brands sec-content">
+                <ul>
+                    <li class="item">
+                        <a href="new-cars/?brand=Audi">
+                            <div class="image-wrapper"><img src="{% static 'images/audi.webp' %}" alt=""></div>
+                            <p>Audi</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Hyundai">
+                            <div class="image-wrapper"><img src="{% static 'images/hyundai.webp' %}" alt=""></div>
+                            <p>Hyundai</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=BMW">
+                            <div class="image-wrapper"><img src="{% static 'images/bmw.webp' %}" alt=""></div>
+                            <p>BMW</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Kia">
+                            <div class="image-wrapper"><img src="{% static 'images/kia.webp' %}" alt=""></div>
+                            <p>Kia</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Volkswagen">
+                            <div class="image-wrapper"><img src="{% static 'images/wolkswagen.webp' %}" alt=""></div>
+                            <p>Volkswagen</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Porsche">
+                            <div class="image-wrapper"><img src="{% static 'images/porsche.webp' %}" alt=""></div>
+                            <p>Porsche</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Toyota">
+                            <div class="image-wrapper"><img src="{% static 'images/toyota.webp' %}" alt=""></div>
+                            <p>Toyota</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Genesis">
+                            <div class="image-wrapper"><img src="{% static 'images/genesis.webp' %}" alt=""></div>
+                            <p>Genesis</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?brand=Lexus">
+                            <div class="image-wrapper"><img src="{% static 'images/lexus.webp' %}" alt=""></div>
+                            <p>Lexus</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    <section class="sec-3">
+        <div class="container">
+            <h1>Поиск по цене</h1>
+            <nav class="sec-3-byprice sec-content">
+                <ul>
+                    <li class="item">
+                        <a href="new-cars/?price_min=1+000+000&price_max=1+500+000">
+                            <div class="image-wrapper"><img src="{% static 'images/sec-3-c1.webp' %}" alt=""></div>
+                            <div class="sec-3-byprice-item-text">
+                                <h2>ЭКОНОМ</h2>
+                                <p>до 1.5 млн ₽</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?price_min=2+000+000&price_max=3+000+000">
+                            <div class="image-wrapper"><img src="{% static 'images/sec-3-c2.webp' %}" alt=""></div>
+                            <div class="sec-3-byprice-item-text">
+                                <h2>КОМФОРТ</h2>
+                                <p>до 3 млн ₽</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?price_min=3+000+000&price_max=6+000+000">
+                            <div class="image-wrapper"><img src="{% static 'images/sec-3-c3.webp' %}" alt=""></div>
+                            <div class="sec-3-byprice-item-text">
+                                <h2>БИЗНЕС</h2>
+                                <p>до 6 млн ₽</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="new-cars/?price_min=7+000+000">
+                            <div class="image-wrapper"><img src="{% static 'images/sec-3-c4.webp' %}" alt=""></div>
+                            <div class="sec-3-byprice-item-text">
+                                <h2>ПРЕМИУМ</h2>
+                                <p>от 6 млн ₽</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    {% include 'components/footer.html' %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

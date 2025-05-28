@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/car-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/adaptive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>{{ car.title }}</title>
+</head>
+<body>
+    {% include 'components/header.html' %}
+
+    <section class="car-detail-top">
+        <div class="container">
+            <div class="image">
+                <img src="{{ car.main_photo }}" alt="">
+            </div>
+            <div class="car-info">
+                <h1>{{ car.title }}</h1>
+                <div><span>Добавлено: </span><span>{{ car.created_at }}</span></div>
+                <div class="car-info-info">
+                    <div><span>Год:</span><span>{{ car.year }}</span></div>
+                    <div><span>Топливо:</span><span>{{ car.fuel_type }}</span></div>
+                    <div><span>Пробег:</span><span>{{ car.mileage }} км</span></div>
+                    <div><span>Цвет:</span><span>{{ car.color }}</span></div>
+                </div>
+                <div class="price-block">
+                    <button id="toggleButton">Показать расчет цены</button>
+                    <span class="format_nums_rub">{{ car.total }}</span>
+                </div>
+                <div class="currency-box hidden" id="toggleBlock">
+                    <div class="currency-box-inner">
+                        <h2>Курсы валют на <strong class="datetime_now"></strong>:</h2>
+                        <div class="euro-rate">€ = <strong>{{ currency.EUR }}</strong></div>
+
+                        <div><span class="bullet">■</span>Итоговая цена <span class="price format_nums_rub">{{ car.total }}</span> состоит из:</div>
+
+                        <div class="cost-item"><span class="bullet">■</span>Услуги агента: <span class="price format_nums_rub">{{ car.agent_service }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Стоимость авто + расходы в Корее: <span class="price">{{ car.price_service }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Таможенные платежи: <span class="price format_nums_rub">{{ car.duty_rub }}</span> (<span class="price format_nums_eur">{{ car.duty_eur }}</span>)</div>
+                        <div class="cost-item"><span class="bullet">■</span>Утильсбор: <span class="price format_nums_rub">{{ car.fee }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Таможенный брокер: <span class="price format_nums_rub">{{ car.customs_broker }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Автовоз: <span class="price">0 ₽</span></div>
+
+                        <div class="note">
+                          * цена может незначительно отличаться в связи с техническими особенностями, например, при задержке обновления курсов валют от ЦБ или в связи с округлением чисел.
+                        </div>
+                    </div>
+                </div>
+                <div class="questions">
+                    <a href="{{ settings.questions }}">Задать вопрос по Авто</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="car-detail-bottom">
+        <div class="container">
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Технические характеристики</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                    <li><span>Марка / модель: </span><span>{{ car.brand }}, {{ car.model }}</span></li>
+                    <li><span>Год выпуска: </span><span>{{ car.year }}</span></li>
+                    <li><span>Пробег: </span><span>{{ car.mileage }} км</span></li>
+                    <li><span>Объем двигателя: </span><span>{{ car.engine }}</span></li>
+                    <li><span>Трансмиссия: </span><span>{{ car.transmission }}</span></li>
+                    <li><span>Цвет: </span><span>{{ car.color }}</span></li>
+                    <li><span>Топливо: </span><span>{{ car.fuel_type }}</span></li>
+                    <li><span>Тип кузова: </span><span>{{ car.body|default:"N/A" }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+    <script src="{% static 'js/car-detail.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

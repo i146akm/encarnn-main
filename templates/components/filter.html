@@ -1,0 +1,108 @@
+<section class="sec-1 close-menu" style="background-image: url('{{ settings.background_image.url }}')">
+    <div class="container">
+        <form method="GET" action="{% url 'new-cars' %}" id='filter_form' class="sec-1-inner">
+            <h1 class="h1">Новые авто</h1>
+            <div class="sec-1-inner-row-1">
+                <div class="custom-select-container" json-level data-level="1">
+                    <input type="text" class="custom-input" placeholder="Бренд" name="brand">
+                    <div class="custom-options"></div>
+                    <div class="toggle fas fa-chevron-down"></div>
+                </div>
+                <div class="custom-select-container" json-level data-level="2">
+                    <input type="text" class="custom-input" placeholder="Модель" disabled name="model">
+                    <div class="custom-options"></div>
+                    <div class="toggle fas fa-chevron-down"></div>
+                </div>
+                <div class="custom-select-container" json-level data-level="3">
+                    <input type="text" class="custom-input" placeholder="Поколение" disabled name="generation">
+                    <div class="custom-options"></div>
+                    <div class="toggle fas fa-chevron-down"></div>
+                </div>
+            </div>
+            <div class="sec-1-inner-row-2">
+                <div class="specifications">
+                    <h1>Характеристики</h1>
+                    <div class="selects">
+                        <div class="custom-select-container" id="fuel-type">
+                            <input type="text" class="custom-input" placeholder="Тип топлива" name="fuel_type">
+                            <div class="custom-options"></div>
+                            <div class="toggle fas fa-chevron-down"></div>
+                        </div>
+                        <div class="custom-select-container" id="transmission-type">
+                            <input type="text" class="custom-input" placeholder="Трансмиссия" name="transmission">
+                            <div class="custom-options"></div>
+                            <div class="toggle fas fa-chevron-down"></div>
+                        </div>
+                        <div class="custom-select-container" id="body-type">
+                            <input type="text" class="custom-input" placeholder="Тип кузова" name="body">
+                            <div class="custom-options"></div>
+                            <div class="toggle fas fa-chevron-down"></div>
+                        </div>
+                        <div class="custom-select-container" id="color">
+                            <input type="text" class="custom-input" placeholder="Цвет" name="color">
+                            <div class="custom-options"></div>
+                            <div class="toggle fas fa-chevron-down"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sec-1-inner-mid-right">
+                    <div class="production-date">
+                        <h1>Год выпуска</h1>
+                        <div class="selects">
+                            <div class="custom-select-container" id="start-prod-year">
+                                <input type="text" class="custom-input" placeholder="Начальный год выпуска" name="end_month">
+                                <div class="custom-options"></div>
+                                <div class="toggle fas fa-chevron-down"></div>
+                            </div>
+                            <div class="custom-select-container" id="start-prod-month">
+                                <input type="text" class="custom-input" placeholder="Начальный месяц выпуска" name="start_month">
+                                <div class="custom-options"></div>
+                                <div class="toggle fas fa-chevron-down"></div>
+                            </div>
+                            <div class="custom-select-container" id="end-prod-year">
+                                <input type="text" class="custom-input" placeholder="Конечный год выпуска" name="start_year">
+                                <div class="custom-options"></div>
+                                <div class="toggle fas fa-chevron-down"></div>
+                            </div>
+                            <div class="custom-select-container" id="end-prod-month">
+                                <input type="text" class="custom-input" placeholder="Конечный месяц выпуска" name="end_year">
+                                <div class="custom-options"></div>
+                                <div class="toggle fas fa-chevron-down"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mileage">
+                        <h1>Пробег</h1>
+                        <div class="selects">
+                            <div class="custom-select-container" id="mileage-min">
+                                <input type="text" class="custom-input" placeholder="Мин. пробег" name='mileage_min'>
+                                <div class="custom-options"></div>
+                                <div class="toggle fas fa-chevron-down"></div>
+                            </div>
+                            <div class="custom-select-container" id="mileage-max">
+                                <input type="text" class="custom-input" placeholder="Макс. пробег" name="mileage_max">
+                                <div class="custom-options"></div>
+                                <div class="toggle fas fa-chevron-down"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>Стоимость</h1>
+            <div class="sec-1-inner-row-3">
+                <div class="custom-select-container" id="price-min">
+                    <input type="text" class="custom-input" placeholder="Мин. стоимость" name="price_min">
+                    <div class="custom-options"></div>
+                    <div class="toggle fas fa-chevron-down"></div>
+                </div>
+                <button>Очистить</button>
+                <div class="custom-select-container" id="price-max">
+                    <input type="text" class="custom-input" placeholder="Макс. стоимость" name="price_max">
+                    <div class="custom-options"></div>
+                    <div class="toggle fas fa-chevron-down"></div>
+                </div>
+                <button type="submit">Показать <span id="found"></span></button>
+            </div>
+        </form>
+    </div>
+</section>

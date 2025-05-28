@@ -1,0 +1,177 @@
+@import 'variables.css';
+.car-detail-top .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  align-items: stretch;
+  grid-gap: 15px;
+}
+.car-detail-top .container .image {
+  min-width: none;
+}
+.currency-box {
+  overflow: hidden;
+  width:100%;
+  margin: 10px auto 0 auto;
+  background: #f0f0f5;
+  border-radius: 10px;
+  max-height: 1000px;
+  transition: .3s linear;
+
+}
+.currency-box > .currency-box-inner {
+  width:100%;
+  padding: 20px 25px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  color: #222;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.hidden {
+  max-height: 0 !important;
+}
+.currency-box h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.currency-box strong {
+  font-weight: bold;
+}
+
+.euro-rate {
+  margin-bottom: 20px;
+}
+
+.bullet {
+  color: var(--primary);
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.cost-item {
+  margin-left: 20px;
+}
+
+.note {
+  font-size: 12px;
+  color: #555;
+  margin-top: 15px;
+}
+.price {
+  font-weight: bold;
+  color: var(--dark);
+}
+.car-detail-top .container .image img {
+  width: 100%;
+}
+.car-detail-top .container .car-info h1 {
+  font-size: var(--sec-title);
+  font-weight: 400;
+}
+.car-detail-top .container .car-info .car-info-info {
+  margin: 20px 0;
+}
+.car-detail-top .container .car-info .car-info-info > div {
+  border-bottom: 1px solid rgba(34, 34, 34, 0.5);
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  margin: 5px 0;
+}
+.car-detail-top .container .car-info .car-info-info > div span:first-child {
+  opacity: 0.7;
+  font-size: var(--p-18);
+}
+.car-detail-top .container .car-info .car-info-info > div span:last-child {
+  font-weight: 500;
+  font-size: var(--p-18);
+}
+.car-detail-top .container .car-info .price-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.car-detail-top .container .car-info .price-block button {
+  flex: 1;
+  background-color: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: .1s
+}
+.clicked {
+  border: 2px solid var(--dark) !important;
+}
+.car-detail-top .container .car-info .price-block button:hover {
+  box-shadow: 2px 2px 3px var(--dark);
+}
+.car-detail-top .container .car-info .price-block button:active {
+  box-shadow: inset 2px 2px 3px var(--dark);
+}
+.car-detail-top .container .car-info .price-block span {
+  flex: 0.8;
+  text-align: right;
+  font-size: var(--p-22);
+}
+.car-detail-top .container .car-info > .questions a {
+  display: block;
+  text-align: center;
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--white);
+  border: 2px solid transparent;
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.car-detail-top .container .car-info > .questions a:hover {
+  background-color: var(--white);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.car-detail-bottom {
+  font-size: 14px;
+}
+.car-detail-bottom .container > div {
+  background-color: #F9F9F9;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+  margin: 20px 0 0 0;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title h3 {
+  font-weight: normal;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title button {
+  background: none;
+  border: none;
+  font-size: 30px;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title button.rotate {
+  transform: rotate(180deg);
+}
+.car-detail-bottom .container > div ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 30px 20px;
+  display: none;
+  transition: all 0.3s ease;
+}
+.car-detail-bottom .container > div ul li {
+  border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+  padding: 10px;
+  display: block;
+}
+.car-detail-bottom .container > div ul li span:first-child {
+  font-weight: 600;
+}

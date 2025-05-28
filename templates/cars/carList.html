@@ -1,0 +1,110 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/cars-list.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/adaptive.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <title>Новые авто</title>
+</head>
+<body>
+
+{% include 'components/header.html' %}
+{% include 'components/filter.html' %}
+
+<section class="cards container">
+  <div class="container title">
+    <h1>Новые авто</h1>
+  </div>
+  <div class="container">
+    {% for i in car %}
+      <a href="/new-cars/{{ i.slug }}/" class="item">
+        <div class="image-wrapper">
+          <img src="{{ i.main_photo.url }}" alt="">
+        </div>
+        <div class="item-text">
+          <h1>{{ i.name }}</h1>
+          <div class="card-info">
+            <div><span>Марка:</span><span>{{ i.brand }}</span></div>
+            <div><span>Модель:</span><span>{{ i.model }}</span></div>
+            <div><span>Топливо:</span><span>{{ i.fuel_type }}</span></div>
+            <div><span>Пробег:</span><span>{{ i.mileage }} км</span></div>
+            <div><span>Год выпуска:</span><span>{{ i.year }}</span></div>
+            <div><span>Цена:</span><span class="format_nums_rub">{{ i.total|floatformat:0 }}</span></div>
+          </div>
+          <div class="button">Подробнее</div>
+        </div>
+      </a>
+    {% empty %}
+      <p>Автомобили не найдены.</p>
+    {% endfor %}
+  </div>
+
+  <div class="pagination-container">
+  {% if page_obj.has_other_pages %}
+  <div class="pagination-container">
+    <div class="pagination">
+      <div class="page-numbers">
+        {% with total=page_obj.paginator.num_pages current=page_obj.number %}
+
+          {# Первая страница всегда #}
+          {% if current == 1 %}
+            <span class="current-page">1</span>
+          {% else %}
+            <a href="?{% if query_params %}{{ query_params }}&{% endif %}page=1">1</a>
+          {% endif %}
+
+          {# Левая многоточие #}
+          {% if current > 4 %}
+            <span class="dots">...</span>
+          {% endif %}
+
+          {# Страницы вокруг текущей #}
+          {% for num in page_obj.paginator.page_range %}
+            {% if num > 1 and num < total and num >= current|add:"-2" and num <= current|add:"2" %}
+              {% if num == current %}
+                <span class="current-page">{{ num }}</span>
+              {% else %}
+                <a href="?{% if query_params %}{{ query_params }}&{% endif %}page={{ num }}">{{ num }}</a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {# Правая многоточие #}
+          {% if current < total|add:"-3" %}
+            <span class="dots">...</span>
+          {% endif %}
+
+          {# Последняя страница всегда #}
+          {% if current == total %}
+            <span class="current-page">{{ total }}</span>
+          {% else %}
+            <a href="?{% if query_params %}{{ query_params }}&{% endif %}page={{ total }}">{{ total }}</a>
+          {% endif %}
+
+        {% endwith %}
+      </div>
+
+      <div class="nav-buttons">
+        {% if page_obj.has_previous %}
+          <a class="nav-link" href="?{% if query_params %}{{ query_params }}&{% endif %}page={{ page_obj.previous_page_number }}">← Назад</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+          <a class="nav-link" href="?{% if query_params %}{{ query_params }}&{% endif %}page={{ page_obj.next_page_number }}">Вперёд →</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+</div>
+
+</section>
+
+{% include 'components/footer.html' %}
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

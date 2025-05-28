@@ -1,0 +1,61 @@
+:root {
+    --dark: #333;
+    --white: #fffafa;
+    --primary: #d50527;
+    --sec-margin: 60px;
+    --block-margin: 30px;
+    --title: 36px;
+    --p-22: 22px;
+    --p-18: 18px;
+    --card-title: 20px;
+    --sec-title: 33px;
+    --p-24: 24px;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --sec-margin: 36px;
+        --block-margin: 20px;
+        --title: 24px;
+        --p-18: 16px;
+        --card-title: 20px;
+        --sec-title: 24px;
+        --p-24: 20px;
+        --p-22: 18px;
+    }
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poiret One';
+    src: url('../fonts/PoiretOne/PoiretOne-Regular.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
