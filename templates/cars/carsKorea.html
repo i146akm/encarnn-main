@@ -14,15 +14,34 @@
 
 {% include 'components/header.html' %}
 {% include 'components/filter-korea.html' %}
-
+<button id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>
 <section class="cards container">
   <div class="container title">
     <h1>Авто из Кореи</h1>
+    <div class="sort-wrapper">
+    <button class="sort-button" onclick="toggleSortMenu()">Сортировать</button>
+    <div class="sort-menu" id="sortMenu">
+      <div class="sort-group">
+        <div class="sort-group-title">По цене</div>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=price_asc">Сначала дешёвые</a>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=price_desc">Сначала дорогие</a>
+      </div>
+      <div class="sort-group">
+        <div class="sort-group-title">По дате добавления</div>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=date_added_desc">Сначала новые</a>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=date_added_asc">Сначала старые</a>
+      </div>
+    </div>
+</div>
+
+
   </div>
 
   <div class="container">
     {% for i in cars %}
-      <a href="/cars-korea/{{ i.vehicle_id }}/" class="item">
+      <a href="/cars-korea/{{ i.vehicle_id }}/" class="item" target="_blank">
         <div class="image-wrapper">
           <img src="{{ i.main_photo }}" alt="">
         </div>

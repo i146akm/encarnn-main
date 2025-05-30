@@ -43,4 +43,17 @@ function setupToggle(buttonSelector, blockSelector) {
         });
     }
 
+
+document.addEventListener("DOMContentLoaded", function () {
+  const mainPhoto = document.getElementById("mainPhoto");
+  const thumbs = document.querySelectorAll(".thumb");
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      mainPhoto.src = thumb.src;
+      thumbs.forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
+    });
+  });
+});
 setupToggle('#toggleButton', '#toggleBlock');

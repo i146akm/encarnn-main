@@ -16,8 +16,15 @@
     <section class="car-detail-top">
         <div class="container">
             <div class="image">
-                <img src="{{ car.main_photo }}" alt="">
-            </div>
+  <img id="mainPhoto" class="main-photo" src="{{ car.main_photo }}" alt="">
+
+  <div class="thumbnails">
+    <img class="thumb active" src="{{ car.main_photo }}" alt="">
+    {% for img in car.photos %}
+      <img class="thumb" src="{{ img }}" alt="">
+    {% endfor %}
+  </div>
+</div>
             <div class="car-info">
                 <h1>{{ car.title }}</h1>
                 <div><span>Добавлено: </span><span>{{ car.created_at }}</span></div>
@@ -39,7 +46,7 @@
                         <div><span class="bullet">■</span>Итоговая цена <span class="price format_nums_rub">{{ car.total }}</span> состоит из:</div>
 
                         <div class="cost-item"><span class="bullet">■</span>Услуги агента: <span class="price format_nums_rub">{{ car.agent_service }}</span></div>
-                        <div class="cost-item"><span class="bullet">■</span>Стоимость авто + расходы в Корее: <span class="price">{{ car.price_service }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Стоимость авто + расходы в Корее: <span class="price format_nums_rub">{{ car.price_service }}</span></div>
                         <div class="cost-item"><span class="bullet">■</span>Таможенные платежи: <span class="price format_nums_rub">{{ car.duty_rub }}</span> (<span class="price format_nums_eur">{{ car.duty_eur }}</span>)</div>
                         <div class="cost-item"><span class="bullet">■</span>Утильсбор: <span class="price format_nums_rub">{{ car.fee }}</span></div>
                         <div class="cost-item"><span class="bullet">■</span>Таможенный брокер: <span class="price format_nums_rub">{{ car.customs_broker }}</span></div>
@@ -51,7 +58,7 @@
                     </div>
                 </div>
                 <div class="questions">
-                    <a href="{{ settings.questions }}">Задать вопрос по Авто</a>
+                    <a href="{{ settings.questions }}" target="_blank">Задать вопрос по Авто</a>
                 </div>
             </div>
         </div>
@@ -65,14 +72,19 @@
                     <button class="bottom-toggle fas fa-chevron-down"></button>
                 </div>
                 <ul>
-                    <li><span>Марка / модель: </span><span>{{ car.brand }}, {{ car.model }}</span></li>
-                    <li><span>Год выпуска: </span><span>{{ car.year }}</span></li>
-                    <li><span>Пробег: </span><span>{{ car.mileage }} км</span></li>
-                    <li><span>Объем двигателя: </span><span>{{ car.engine }}</span></li>
-                    <li><span>Трансмиссия: </span><span>{{ car.transmission }}</span></li>
-                    <li><span>Цвет: </span><span>{{ car.color }}</span></li>
-                    <li><span>Топливо: </span><span>{{ car.fuel_type }}</span></li>
-                    <li><span>Тип кузова: </span><span>{{ car.body|default:"N/A" }}</span></li>
+                    <li><span>Марка / модель: </span><span>{{ car.brand|default:"N/A" }}, {{ car.model|default:"N/A" }}</span></li>
+                    <li><span>Год выпуска: </span><span>{{ car.year|default:"N/A" }}</span></li>
+                    <li><span>Месяц выпуска: </span><span>{{ car.month|default:"N/A" }}</span></li>
+                    <li><span>Пробег: </span><span>{{ car.mileage|default:"N/A" }} км</span></li>
+                    <li><span>Объем двигателя: </span><span>{{ car.engine|default:"N/A" }}</span></li>
+                    <li><span>Трансмиссия: </span><span>{{ car.transmission|default:"N/A" }}</span></li>
+                    <li><span>Цвет: </span><span>{{ car.color|default:"N/A" }}</span></li>
+                    <li><span>Топливо: </span><span>{{ car.fuel_type|default:"N/A" }}</span></li>
+                    <li><span>VIN - код: </span><span>{{ car.vin|default:"N/A" }}</span></li>
+                    <li><span>Тип кузова: </span><span>{{ car.body_type|default:"N/A" }}</span></li>
+                    <li><span>Дата инспекции: </span><span>{{ car.inspection_date|default:"N/A" }}</span></li>
+                    <li><span>Комплектация: </span><span>{{ car.gen|default:"N/A" }}</span></li>
+                    <li><span>Гарантия: </span><span>{{ car.warranty_type|default:"N/A" }}</span></li>
                 </ul>
             </div>
         </div>

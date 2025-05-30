@@ -4,12 +4,15 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator
+from datetime import datetime
+import re
+from rapidfuzz import fuzz
 
 
 def load_cars():
     json_path = os.path.join(settings.BASE_DIR, 'data', 'json', 'vehicles.json')
     with open(json_path, encoding='utf-8') as f:
-        return json.load(f)
+        return json.load(f)['results']
 
 
 def to_int(value, default=0):
@@ -34,35 +37,62 @@ COLOR_MAP = {
     'серебристо-серый': 'silver_gray',
 }
 
-def matches_filters(car, filters):
-    if filters['brand'] and filters['brand'].lower() not in car.get('brand', '').lower():
-        return False
-    if filters['model'] and filters['model'].lower() not in car.get('title', '').lower():
-        return False
-    if filters['fuel_type'] and filters['fuel_type'].lower() != car.get('fuel_type', '').lower():
-        return False
-    if filters['transmission']:
-        expected = TRANSMISSION_MAP.get(filters['transmission'], '').lower()
-        if expected != car.get('transmission', '').lower():
+def normalize(text):
+    """Преобразует строку в список слов в нижнем регистре."""
+    return re.findall(r'\w+', text.lower())
+
+def words_match_loose(filter_text, target_text, threshold=80):
+    """
+    Возвращает True, если все слова из фильтра есть в целевом тексте
+    или примерно похожи (по fuzzy-сравнению).
+    """
+    filter_words = normalize(filter_text)
+    target_words = normalize(target_text)
+
+    for fw in filter_words:
+        if not any(fuzz.ratio(fw, tw) >= threshold for tw in target_words):
             return False
-    if filters['color']:
-        expected = COLOR_MAP.get(filters['color'].lower(), '').lower()
-        if expected != car.get('color', '').lower():
-            return False
-    if filters['start_year'] and to_int(car.get('year')) < to_int(filters['start_year']):
-        return False
-    if filters['end_year'] and to_int(car.get('year')) > to_int(filters['end_year']):
-        return False
-    if filters['mileage_min'] and to_int(car.get('mileage')) < to_int(filters['mileage_min']):
-        return False
-    if filters['mileage_max'] and to_int(car.get('mileage')) > to_int(filters['mileage_max']):
-        return False
-    if filters['price_min'] and to_int(car.get('total')) < to_int(filters['price_min']):
-        return False
-    if filters['price_max'] and to_int(car.get('total')) > to_int(filters['price_max']):
-        return False
     return True
 
+def matches_filters(car, filters):
+    if filters.get('brand') and not words_match_loose(filters['brand'], car.get('brand', '')):
+        return False
+
+    if filters.get('model') and not words_match_loose(filters['model'], car.get('title', '')):
+        return False
+
+    if filters.get('fuel_type') and not words_match_loose(filters['fuel_type'], car.get('fuel_type', '')):
+        return False
+
+    if filters.get('transmission'):
+        expected = TRANSMISSION_MAP.get(filters['transmission'], filters['transmission'])
+        if not words_match_loose(expected, car.get('transmission', '')):
+            return False
+
+    if filters.get('color'):
+        expected = COLOR_MAP.get(filters['color'].lower(), filters['color'])
+        if not words_match_loose(expected, car.get('color', '')):
+            return False
+
+    if filters.get('start_year') and to_int(car.get('year')) < to_int(filters['start_year']):
+        return False
+
+    if filters.get('end_year') and to_int(car.get('year')) > to_int(filters['end_year']):
+        return False
+
+    if filters.get('mileage_min') and to_int(car.get('mileage')) < to_int(filters['mileage_min']):
+        return False
+
+    if filters.get('mileage_max') and to_int(car.get('mileage')) > to_int(filters['mileage_max']):
+        return False
+
+    if filters.get('price_min') and to_int(car.get('total')) < to_int(filters['price_min']):
+        return False
+
+    if filters.get('price_max') and to_int(car.get('total')) > to_int(filters['price_max']):
+        return False
+
+    return True
 
 def cars_korea_view(request):
     cars = load_cars()
@@ -82,19 +112,38 @@ def cars_korea_view(request):
     }
 
     filtered_cars = [car for car in cars if matches_filters(car, filters)]
+    sort = request.GET.get('sort')
+
+    def parse_year_month(car):
+        year = to_int(car.get('year'), 0)
+        month = to_int(car.get('month'), 1)  # если месяц нет, считаем январь
+        # Возвращаем кортеж, по которому можно сортировать
+        return (year, month)
+
+    if sort == 'price_asc':
+        filtered_cars.sort(key=lambda x: to_int(x.get('total')))
+    elif sort == 'price_desc':
+        filtered_cars.sort(key=lambda x: to_int(x.get('total')), reverse=True)
+    elif sort == 'date_added_asc':
+        filtered_cars.sort(key=parse_year_month)
+    elif sort == 'date_added_desc':
+        filtered_cars.sort(key=parse_year_month, reverse=True)
 
     paginator = Paginator(filtered_cars, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    # Создаем копию параметров запроса и удаляем 'page' и 'sort', чтобы их переопределить при формировании ссылок
     query_params = request.GET.copy()
     query_params.pop('page', None)
+    query_params.pop('sort', None)
 
     return render(request, 'cars/carsKorea.html', {
         'cars': page_obj.object_list,
         'filters': filters,
         'page_obj': page_obj,
         'query_params': query_params.urlencode(),
+        'current_sort': sort,
     })
 
 

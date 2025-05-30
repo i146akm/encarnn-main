@@ -13,5 +13,3 @@ def convert_currency(amount, from_currency, to_currency, rates=data):
     rub_per_from = 1 / rates[from_currency]
     result = rub_per_from * rates[to_currency] * amount
     return round(result, 2)
-
-print(convert_currency(14000, 'RUB', 'USD'))

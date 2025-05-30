@@ -1,4 +1,4 @@
-def calculate_all(price_rub, engine_cc, year, commercial=False):
+def calculate_all(price_rub, engine, year, commercial=False):
     from datetime import datetime
     from data.currency import convert_currency as cc_func
 
@@ -6,7 +6,7 @@ def calculate_all(price_rub, engine_cc, year, commercial=False):
         raise ValueError("Необходимо передать функцию cc_func для конвертации валют.")
 
     # Перевод с литров в сантиметры
-    engine_cc *= 1000
+    engine_cc = engine * 1000
     # Возраст авто
     age = datetime.now().year - year
 

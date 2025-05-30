@@ -126,6 +126,41 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image .main-photo {
+  width: 500px;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  max-width: 520px;
+  padding-bottom: 10px;
+}
+
+.thumbnails img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border 0.2s ease;
+}
+
+.thumbnails img.active {
+  border-color: #007bff;
+}
 .car-detail-top .container .car-info > .questions a:hover {
   background-color: var(--white);
   color: var(--primary);

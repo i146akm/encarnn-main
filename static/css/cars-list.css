@@ -5,6 +5,13 @@
   grid-gap: 12px;
   margin-top: var(--block-margin);
 }
+.cards .title {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 .cards .container.title h1 {
   font-weight: 400;
 }
@@ -121,7 +128,67 @@
   font-weight: bold;
   user-select: none;
 }
+.sort-wrapper {
+  position: relative;
+  display: inline-block;
+  font-family: sans-serif;
+}
 
+.sort-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.sort-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 220px;
+  z-index: 10;
+  padding: 10px;
+}
+@media(max-width: 392px) {
+  .sort-menu {
+    left: 0;
+  }
+}
+.sort-group {
+  margin-bottom: 10px;
+}
+
+.sort-group:last-child {
+  margin-bottom: 0;
+}
+
+.sort-group-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.sort-menu a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.sort-menu a:hover {
+  background-color: #f0f0f0;
+}
 .page-numbers a,
 .page-numbers span {
   padding: 0.5rem 0.75rem;

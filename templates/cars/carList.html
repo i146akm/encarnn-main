@@ -8,20 +8,40 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/adaptive.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <title>Новые авто</title>
+  <title>Авто из Кореи</title>
 </head>
 <body>
 
 {% include 'components/header.html' %}
 {% include 'components/filter.html' %}
-
+<button id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>
 <section class="cards container">
   <div class="container title">
     <h1>Новые авто</h1>
+    <div class="sort-wrapper">
+    <button class="sort-button" onclick="toggleSortMenu()">Сортировать</button>
+    <div class="sort-menu" id="sortMenu">
+      <div class="sort-group">
+        <div class="sort-group-title">По цене</div>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=price_asc">Сначала дешёвые</a>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=price_desc">Сначала дорогие</a>
+      </div>
+      <div class="sort-group">
+        <div class="sort-group-title">По дате добавления</div>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=date_added_desc">Сначала новые</a>
+        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=date_added_asc">Сначала старые</a>
+      </div>
+    </div>
+</div>
+
+
   </div>
+
   <div class="container">
     {% for i in car %}
-      <a href="/new-cars/{{ i.slug }}/" class="item">
+      <a href="/new-cars/{{ i.slug }}/" class="item" target="_blank">
         <div class="image-wrapper">
           <img src="{{ i.main_photo.url }}" alt="">
         </div>
@@ -33,7 +53,7 @@
             <div><span>Топливо:</span><span>{{ i.fuel_type }}</span></div>
             <div><span>Пробег:</span><span>{{ i.mileage }} км</span></div>
             <div><span>Год выпуска:</span><span>{{ i.year }}</span></div>
-            <div><span>Цена:</span><span class="format_nums_rub">{{ i.total|floatformat:0 }}</span></div>
+            <div><span>Цена:</span><span class="format_nums_rub">{{ i.total }}</span></div>
           </div>
           <div class="button">Подробнее</div>
         </div>

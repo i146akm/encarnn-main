@@ -9,16 +9,16 @@
     <div class="header-main">
         <div class="container">
             <div>
-                <span>EncarNN</span>
+                <a href="/" class="logo-link" target="_blank">EncarNN</a>
                 <span>Работаем с 2008 года</span>
             </div>
             <nav class="desktop-menu">
                 <ul>
+                    <li><a href="{% url 'cars-korea' %}" target="_blank">Авто из кореи</a></li>
+                    <li><a href="{% url 'new-cars' %}" target="_blank">Новые авто</a></li>
                     {% for page in menu_pages %}
-                      <li><a href="{% url 'text_page' slug=page.slug %}">{{ page.title }}</a></li>
+                      <li><a href="{% url 'text_page' slug=page.slug %}" target="_blank">{{ page.title }}</a></li>
                     {% endfor %}
-                    <li><a href="{% url 'cars-korea' %}">Авто из кореи</a></li>
-                    <li><a href="{% url 'new-cars' %}">Новые авто</a></li>
                 </ul>
             </nav>
         </div>

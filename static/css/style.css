@@ -57,7 +57,7 @@ header .header-main .container > div {
   display: flex;
   flex-direction: column;
 }
-header .header-main .container > div span:first-child {
+header .header-main .container > div a {
   color: var(--primary);
   font-weight: 800;
   font-size: 34px;
@@ -92,6 +92,7 @@ body {
   height: 100%;
   border-radius: 30px;
   padding: 40px;
+  border: 1px solid #222;
 }
 .sec-1 .container .sec-1-inner h1 {
   color: var(--white);
@@ -292,12 +293,36 @@ body {
   background-color: var(--primary);
   color: white;
 }
-
-
 footer {
   background-color: var(--dark);
   padding: 70px 0;
   margin-top: calc(var(--sec-margin) * 3);
+  position: relative;
+  bottom: 0;
+}
+.fa-arrow-up {
+  pointer-events: none;
+  color: var(--white);
+}
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
+    background-color: var(--primary);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+  }
+#backToTop:hover {
+  background-color: #a00030;
 }
 footer h1, footer p, footer a, footer i, footer span {
   color: var(--white);
@@ -312,7 +337,7 @@ footer .container > div:nth-child(1) {
   display: flex;
   flex-direction: column;
 }
-footer .container > div:nth-child(1) span:first-child {
+footer .container > div:nth-child(1) a {
   color: var(--primary);
   font-weight: 800;
   font-size: 34px;

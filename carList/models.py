@@ -110,6 +110,10 @@ class CarAd(models.Model):
         ("Сжиженный газ", "Сжиженный газ"),
         ("Электричество", "Электричество"),
     ]
+    WARRANTY_CHOICES = [
+        ("Да", "Да"),
+        ("Нет", "Нет"),
+    ]
     brand = models.CharField('Марка ', choices=BRAND_CHOICES, null=True)
     model = models.CharField('Модель', max_length=255, null=True)
     name = models.CharField('Название ', max_length=255, default='Без названия')
@@ -138,6 +142,11 @@ class CarAd(models.Model):
         null=True,
     )
     transmission = models.CharField('Трансмиссия', choices=TRANSMISSION_CHOICES, null=True)
+    vin = models.CharField('VIN - код', max_length=255, null=True)
+    body_type = models.CharField('Тип кузова', max_length=255, null=True)
+    inspection_date = models.CharField('Дата инспекции', max_length=255, null=True)
+    gen = models.CharField('Комплектация', max_length=255, null=True)
+    warranty = models.CharField('Гарантия', choices=WARRANTY_CHOICES, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
@@ -159,3 +168,10 @@ class CarAd(models.Model):
     class Meta:
         verbose_name = 'Объявление'
         verbose_name_plural = 'Объявления'
+
+class Photos(models.Model):
+    car = models.ForeignKey(CarAd, on_delete=models.CASCADE, related_name='photos')
+    image = models.ImageField(upload_to='car_photos/')
+
+    def __str__(self):
+        return f'Фото для {self.car.name}'

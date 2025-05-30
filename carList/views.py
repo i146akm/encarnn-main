@@ -3,6 +3,15 @@ from . import models
 from django.core.paginator import Paginator
 from .calc import calculate_all as calc
 from .models import CarAd
+import re
+from rapidfuzz import fuzz
+
+
+def fuzzy_match(a, b, threshold=75):
+    if not a or not b:
+        return False
+    return fuzz.token_set_ratio(a.lower(), b.lower()) >= threshold
+
 
 def car_view(request):
     cars = list(CarAd.objects.all())
@@ -24,20 +33,22 @@ def car_view(request):
         'price_min': request.GET.get('price_min'),
         'price_max': request.GET.get('price_max'),
     }
+
     if filters['brand']:
-        cars = [car for car in cars if filters['brand'].lower() in car.brand.lower()]
+        cars = [car for car in cars if fuzzy_match(filters['brand'], car.brand)]
     if filters['model']:
-        cars = [car for car in cars if filters['model'].lower() in car.model.lower()]
+        cars = [car for car in cars if fuzzy_match(filters['model'], car.model)]
     if filters['generation']:
-        cars = [car for car in cars if filters['generation'].lower() in (car.generation or '').lower()]
+        cars = [car for car in cars if fuzzy_match(filters['generation'], car.generation or '')]
     if filters['fuel_type']:
-        cars = [car for car in cars if filters['fuel_type'].lower() in car.fuel_type.lower()]
+        cars = [car for car in cars if fuzzy_match(filters['fuel_type'], car.fuel_type)]
     if filters['transmission']:
-        cars = [car for car in cars if filters['transmission'].lower() in car.transmission.lower()]
+        cars = [car for car in cars if fuzzy_match(filters['transmission'], car.transmission)]
     if filters['body_type']:
-        cars = [car for car in cars if filters['body_type'].lower() in (car.body_type or '').lower()]
+        cars = [car for car in cars if fuzzy_match(filters['body_type'], car.body_type or '')]
     if filters['color']:
-        cars = [car for car in cars if filters['color'].lower() in (car.color or '').lower()]
+        cars = [car for car in cars if fuzzy_match(filters['color'], car.color or '')]
+
     if filters['start_year'] and filters['start_month']:
         start_date = f"{filters['start_year']}-{filters['start_month'].zfill(2)}"
         cars = [car for car in cars if str(car.production_date) >= start_date]
@@ -70,20 +81,36 @@ def car_view(request):
         except:
             continue
 
+    # Сортировка
+    sort = request.GET.get('sort')
+
+    def get_date(car):
+        return (car.year or 0, car.month or 0)
+
+    if sort == 'price_asc':
+        filtered_cars.sort(key=lambda x: x.total)
+    elif sort == 'price_desc':
+        filtered_cars.sort(key=lambda x: x.total, reverse=True)
+    elif sort == 'date_added_asc':
+        filtered_cars.sort(key=get_date)
+    elif sort == 'date_added_desc':
+        filtered_cars.sort(key=get_date, reverse=True)
+
     paginator = Paginator(filtered_cars, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     query_params = request.GET.copy()
     query_params.pop('page', None)
+    query_params.pop('sort', None)
 
     return render(request, 'cars/carList.html', {
         'car': page_obj.object_list,
         'filters': filters,
         'page_obj': page_obj,
         'query_params': query_params.urlencode(),
+        'current_sort': sort,
     })
-
 
 def car_detail(request, slug):
     car = g(models.CarAd, slug=slug)
