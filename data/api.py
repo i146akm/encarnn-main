@@ -1,12 +1,21 @@
 import sqlite3
 
 def drop_all_tables():
-    db_path = 'db/vehicles_.db'
+    db_path = 'db/vehicles.db'
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Получаем список всех пользовательских таблиц
-    cursor.execute("DROP TABLE vehicles")
+    cursor.execute('''
+        DELETE FROM vehicles
+        WHERE id NOT IN (
+            SELECT MIN(id)
+            FROM vehicles
+            GROUP BY car_number
+        );
+
+
+    ''')
     tables = cursor.fetchall()
 
     for table in tables:

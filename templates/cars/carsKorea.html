@@ -43,13 +43,11 @@
     {% for i in cars %}
       <a href="/cars-korea/{{ i.id }}/" class="item" target="_blank">
         <div class="image-wrapper">
-          <img src="{{ i.images.1 }}" alt="">
+          <img src="{{ i.images.0 }}" alt="">
         </div>
         <div class="item-text">
           <h1>{{ i.title }}</h1>
           <div class="card-info">
-            <div><span>Марка:</span><span>{{ i.brand }}</span></div>
-            <div><span>Модель:</span><span>{{ i.model }}</span></div>
             <div><span>Топливо:</span><span>{{ i.fuel_type }}</span></div>
             <div><span>Пробег:</span><span>{{ i.mileage }} км</span></div>
             <div><span>Год выпуска:</span><span>{{ i.year }}</span></div>

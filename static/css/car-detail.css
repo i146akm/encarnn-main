@@ -1,5 +1,8 @@
 @import 'variables.css';
 .car-detail-top .container {
+  margin: 40px auto 0 auto;
+}
+.car-detail-top .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   align-items: stretch;

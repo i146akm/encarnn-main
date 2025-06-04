@@ -11,7 +11,7 @@ from rapidfuzz import fuzz
 
 
 def load_cars():
-    db_path = os.path.join(settings.BASE_DIR, 'data', 'db', 'vehicles____.db')
+    db_path = os.path.join(settings.BASE_DIR, 'data', 'db', 'vehicles.db')
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
@@ -58,6 +58,25 @@ def normalize(text):
     """Преобразует строку в список слов в нижнем регистре."""
     return re.findall(r'\w+', text.lower())
 
+def fuzzy_contains(needle, haystack, threshold=70):
+    """
+    Умный fuzzy-поиск, устойчивый к опечаткам, лишним словам и перестановкам.
+    """
+    if not needle or not haystack:
+        return False
+
+    # Проверка через token_set_ratio (устойчив к порядку слов)
+    if fuzz.token_set_ratio(needle, haystack) >= threshold:
+        return True
+
+    # Дополнительная проверка: частичное совпадение (устойчиво к опечаткам)
+    if fuzz.partial_ratio(needle, haystack) >= threshold:
+        return True
+
+    return False
+
+
+
 def words_match_loose(filter_text, target_text, threshold=80):
     """
     Возвращает True, если все слова из фильтра есть в целевом тексте
@@ -72,11 +91,9 @@ def words_match_loose(filter_text, target_text, threshold=80):
     return True
 
 def matches_filters(car, filters):
-    if filters.get('brand') and not words_match_loose(filters['brand'], car.get('brand', '')):
-        return False
-
-    if filters.get('model') and not words_match_loose(filters['model'], car.get('title', '')):
-        return False
+    for key in ['brand', 'model', 'gen']:
+        if filters.get(key) and not fuzzy_contains(filters[key], car.get('title', '')):
+            return False
 
     if filters.get('fuel_type') and not words_match_loose(filters['fuel_type'], car.get('fuel_type', '')):
         return False
@@ -117,6 +134,7 @@ def cars_korea_view(request):
     filters = {
         'brand': request.GET.get('brand'),
         'model': request.GET.get('model'),
+        'gen': request.GET.get('gen'),
         'fuel_type': request.GET.get('fuel_type'),
         'transmission': request.GET.get('transmission'),
         'color': request.GET.get('color'),
