@@ -41,9 +41,9 @@
 
   <div class="container">
     {% for i in cars %}
-      <a href="/cars-korea/{{ i.vehicle_id }}/" class="item" target="_blank">
+      <a href="/cars-korea/{{ i.id }}/" class="item" target="_blank">
         <div class="image-wrapper">
-          <img src="{{ i.main_photo }}" alt="">
+          <img src="{{ i.images.1 }}" alt="">
         </div>
         <div class="item-text">
           <h1>{{ i.title }}</h1>

@@ -5,14 +5,31 @@ from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator
 from datetime import datetime
+import sqlite3
 import re
 from rapidfuzz import fuzz
 
 
 def load_cars():
-    json_path = os.path.join(settings.BASE_DIR, 'data', 'json', 'vehicles.json')
-    with open(json_path, encoding='utf-8') as f:
-        return json.load(f)['results']
+    db_path = os.path.join(settings.BASE_DIR, 'data', 'db', 'vehicles____.db')
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM vehicles")
+    rows = cursor.fetchall()
+    conn.close()
+
+    cars = []
+    for row in rows:
+        car = dict(row)
+        try:
+            car['images'] = json.loads(car['images_json'])  # превратить строку в список
+        except Exception:
+            car['images'] = []  # на случай ошибки
+        cars.append(car)
+
+    return cars
 
 
 def to_int(value, default=0):
@@ -149,7 +166,7 @@ def cars_korea_view(request):
 
 def car_detail(request, id):
     cars = load_cars()
-    car = next((c for c in cars if str(c.get('vehicle_id')) == str(id)), None)
+    car = next((c for c in cars if str(c.get('id')) == str(id)), None)
     if not car:
         raise Http404("Car not found")
     return render(request, 'cars/korea-car_detail.html', {'car': car})

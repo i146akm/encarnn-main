@@ -16,11 +16,11 @@
     <section class="car-detail-top">
         <div class="container">
             <div class="image">
-  <img id="mainPhoto" class="main-photo" src="{{ car.main_photo }}" alt="">
+  <img id="mainPhoto" class="main-photo" src="{{ car.images.0 }}" alt="">
 
   <div class="thumbnails">
     <img class="thumb active" src="{{ car.main_photo }}" alt="">
-    {% for img in car.photos %}
+    {% for img in car.images %}
       <img class="thumb" src="{{ img }}" alt="">
     {% endfor %}
   </div>
@@ -45,11 +45,11 @@
 
                         <div><span class="bullet">■</span>Итоговая цена <span class="price format_nums_rub">{{ car.total }}</span> состоит из:</div>
 
-                        <div class="cost-item"><span class="bullet">■</span>Услуги агента: <span class="price format_nums_rub">{{ car.agent_service }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Услуги агента: <span class="price format_nums_rub">100000</span></div>
                         <div class="cost-item"><span class="bullet">■</span>Стоимость авто + расходы в Корее: <span class="price format_nums_rub">{{ car.price_service }}</span></div>
                         <div class="cost-item"><span class="bullet">■</span>Таможенные платежи: <span class="price format_nums_rub">{{ car.duty_rub }}</span> (<span class="price format_nums_eur">{{ car.duty_eur }}</span>)</div>
                         <div class="cost-item"><span class="bullet">■</span>Утильсбор: <span class="price format_nums_rub">{{ car.fee }}</span></div>
-                        <div class="cost-item"><span class="bullet">■</span>Таможенный брокер: <span class="price format_nums_rub">{{ car.customs_broker }}</span></div>
+                        <div class="cost-item"><span class="bullet">■</span>Таможенный брокер: <span class="price format_nums_rub">100000</span></div>
                         <div class="cost-item"><span class="bullet">■</span>Автовоз: <span class="price">0 ₽</span></div>
 
                         <div class="note">

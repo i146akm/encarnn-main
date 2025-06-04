@@ -1,158 +1,9 @@
-# import json
-# import os
-# import requests
-# from dotenv import load_dotenv
-# from encar import CarapisClient
-# from translatepy import Translator
-# from datetime import datetime
-# from concurrent.futures import ThreadPoolExecutor
-# from currency import convert_currency as cc
-#
-#
-# load_dotenv()
-# client = CarapisClient(api_key=os.getenv('CARAPIS_API_KEY'))
-# translator = Translator()
-#
-# # === КЭШ ПЕРЕВОДОВ ===
-# translate_cache = {}
-#
-# def translate(text, to_lang):
-#     key = (text, to_lang)
-#     if key in translate_cache:
-#         return translate_cache[key]
-#     translated = str(translator.translate(text, to_lang))
-#     translate_cache[key] = translated
-#     return translated
-#
-# def calculate_customs_duty(price_krw, engine_cc, year):
-#     eur = cc(price_krw, 'KRW', 'EUR')
-#     age = datetime.now().year - year
-#
-#     if age < 3:
-#         if eur <= 8500:
-#             percent, min_per_cm3 = 0.54, 2.5
-#         elif eur <= 16700:
-#             percent, min_per_cm3 = 0.48, 3.5
-#         elif eur <= 42300:
-#             percent, min_per_cm3 = 0.48, 5.5
-#         elif eur <= 84500:
-#             percent, min_per_cm3 = 0.48, 7.5
-#         elif eur <= 169000:
-#             percent, min_per_cm3 = 0.48, 15
-#         else:
-#             percent, min_per_cm3 = 0.48, 20
-#         return max(eur * percent, engine_cc * min_per_cm3)
-#
-#     if 3 <= age <= 5:
-#         if engine_cc <= 1000: rate = 1.5
-#         elif engine_cc <= 1500: rate = 1.7
-#         elif engine_cc <= 1800: rate = 2.5
-#         elif engine_cc <= 2300: rate = 2.7
-#         elif engine_cc <= 3000: rate = 3.0
-#         else: rate = 3.6
-#     else:
-#         if engine_cc <= 1000: rate = 3.0
-#         elif engine_cc <= 1500: rate = 3.2
-#         elif engine_cc <= 1800: rate = 3.5
-#         elif engine_cc <= 2300: rate = 4.8
-#         elif engine_cc <= 3000: rate = 5.0
-#         else: rate = 5.7
-#
-#     return engine_cc * rate
-#
-# def calculate_utilization_fee(engine_cc, year, commercial=False):
-#     base = 20000 if not commercial else 150000
-#     age = datetime.now().year - year
-#     if age < 3:
-#         k = 0.17 if engine_cc <= 3000 else 107.67 if engine_cc <= 3500 else 137.11
-#     else:
-#         k = 0.26 if engine_cc <= 3000 else 165.84 if engine_cc <= 3500 else 180.24
-#     return round(base * k, 2)
-#
-# def calculate_priceService(price_krw):
-#     rub = cc(price_krw, 'KRW', 'RUB')
-#     base = rub + 140000
-#     return round(base * 1.12, 2)
-#
-# def format_vehicle(item):
-#     engine_cc = int(item['engine'].replace(' cc', ''))
-#     price_krw = item['price'] * 10000
-#     year = item['year']
-#
-#     duty_eur = round(calculate_customs_duty(price_krw, engine_cc, year), 2)
-#     duty_rub = round(cc(duty_eur, 'EUR', 'RUB'), 2)
-#     fee = round(calculate_utilization_fee(engine_cc, year), 2)
-#     price_service = round(calculate_priceService(price_krw))
-#     customs_broker = 100000
-#     agent_service = 100000
-#     total = round(duty_rub + fee + price_service + customs_broker + agent_service, 2)
-#     return {
-#         'vehicle_id': item['vehicle_id'],
-#         'title': translate(item['model']['name'], 'English'),
-#         'model': item['model']['model_group']['name'],
-#         'fuel_type': "Сжиженный газ" if translate(item['fuel_type'], 'Russian') == 'сжиссер' else translate(item['fuel_type'], 'Russian'),
-#         'color': translate(item['color'], 'Russian'),
-#         'transmission': translate(item['transmission'], 'Russian'),
-#         'brand': item['grade_detail']['model']['model_group']['manufacturer']['name'],
-#         'year': year,
-#         'mileage': item['mileage'],
-#         'engine': round(engine_cc / 1000, 1),
-#         'engine_cc': engine_cc,
-#         'warranty_type': 'Нет' if item['warranty_type'] == 'none' else item['warranty_type'],
-#         'created_at': datetime.strptime(item['created_at'].replace('Z', ''), "%Y-%m-%dT%H:%M:%S.%f").strftime('%d.%m.%Y %H:%M'),
-#         'main_photo': item['main_photo'],
-#         'price_krw': price_krw,
-#         'price_rub': cc(price_krw, 'KRW', 'RUB'),
-#         'price_eur': cc(price_krw, 'KRW', 'EUR'),
-#         'price_usd': cc(price_krw, 'KRW', 'USD'),
-#         'duty_eur': duty_eur,
-#         'duty_rub': duty_rub,
-#         'fee': fee,
-#         'price_service': price_service,
-#         'agent_service': agent_service,
-#         'customs_broker': customs_broker,
-#         'total': total,
-#     }
-#
-# def save_vehicles(filename='json/vehicles.json', limit=100):
-#     all_vehicles_raw = []
-#     page = 1
-#
-#     # Запрашиваем первую страницу, чтобы узнать сколько всего страниц
-#     response = client.list_vehicles(limit=limit, page=page)
-#     total_pages = response.get('pages', 1)
-#     all_vehicles_raw.extend(response.get('results', []))
-#
-#     # Запрос остальных страниц
-#     while page < total_pages:
-#         page += 1
-#         response = client.list_vehicles(limit=limit, page=page)
-#         all_vehicles_raw.extend(response.get('results', []))
-#
-#     # Обрабатываем все полученные машины в пуле потоков
-#     with ThreadPoolExecutor() as executor:
-#         vehicles = list(executor.map(format_vehicle, all_vehicles_raw))
-#
-#     os.makedirs(os.path.dirname(filename), exist_ok=True)
-#     with open(filename, 'w', encoding='utf-8') as f:
-#         json.dump(vehicles, f, ensure_ascii=False, indent=4)
-#
-#     print(f'{filename} updated! Всего машин сохранено: {len(vehicles)}')
-#
-# if __name__ == '__main__':
-#     save_vehicles()
-#
-import json
-import os
-import requests
+import re
 import string
-from dotenv import load_dotenv
-from encar import CarapisClient
 from translatepy import Translator
-from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor
 from currency import convert_currency as cc
 from carList.calc import calculate_all as calc
+
 
 
 translator = Translator()
@@ -180,79 +31,225 @@ def translate(text, to_lang):
         return text
 
 
-def format_vehicle(item):
-    price_krw = item['price'] * 10000
-    price_rub = cc(price_krw, 'KRW', 'RUB')
-    price_eur = cc(price_krw, 'KRW', 'EUR')
-    year = int(item['main_data']['category']['yearMonth'][:4])
-    engine = round(int(item['engine'].replace(' cc', '')) / 1000, 1)
-    calculated = calc(price_rub, engine, year)
-    model = translate(item['grade_detail']['model']['name'], 'English')
-    brand = translate(item['grade_detail']['model']['model_group']['manufacturer']['name'], 'English')
+import sqlite3
+import json
+import asyncio
+from playwright.async_api import async_playwright, Playwright
+
+
+# Функции get_info, get_images, get_price остаются без изменений
+
+async def get_info(page, url):
+    await page.goto(url)
+    await page.wait_for_selector('.DetailSummary_define_summary__NOYid')
+    container = await page.query_selector('.DetailSummary_define_summary__NOYid')
+    elements = await container.query_selector_all('*')
+
+    yearMonth_full = await elements[1].inner_text()
+    yearMonth = '20' + yearMonth_full.replace("식", "").replace('연형정보', '').replace('/', '').replace(' \n', '')
+
+    mileage_full = await elements[5].inner_text()
+    mileage = mileage_full.replace(',', '').replace('km', '')
+
+    fuel_type = await elements[7].inner_text()
+
+    car_number = await elements[9].inner_text()
     return {
-        "vehicle_id": item['vehicle_id'],
-        "title": brand+' '+model,
-        "model": model,
-        "fuel_type": "Сжиженный газ" if translate(item['fuel_type'], 'Russian') == 'сжиссер' else translate(item['fuel_type'], 'Russian'),
-        "color": translate(item['color'], 'Russian'),
-        "transmission": translate(item['transmission'], 'Russian'),
-        "brand": brand,
-        "gen": item['grade_detail']['name'],
-        "year": item['main_data']['category']['yearMonth'][:4],
-        "month": item['main_data']['category']['yearMonth'][4:],
-        "mileage": item['mileage'],
-        "engine": round(int(item['engine'].replace(' cc', '')) / 1000, 1),
-        "engine_cc": int(item['engine'].replace(' cc', '')),
-        "warranty_type": 'Нет' if item['warranty_type'] == 'none' else item['warranty_type'],
-        "created_at": datetime.strptime(item['created_at'].replace('Z', ''), "%Y-%m-%dT%H:%M:%S.%f").strftime('%d.%m.%Y %H:%M'),
-        "vin": item['vin'],
-        "inspection_date": item['inspection']['inspection_date'],
-        "body_type": translate(item['body_type'], 'Russian'),
-        'price_krw': price_krw,
-        'price_rub': price_rub,
-        'price_eur': price_eur,
-        'duty_eur': calculated['duty_eur'],
-        'duty_rub': calculated['duty_rub'],
-        'fee': calculated['fee'],
-        'price_service': calculated['price_service'],
-        'agent_service': 100000,
-        'customs_broker': 1000000,
-        'total': calculated['total'],
-        'main_photo': item['main_photo'],
-        "photos": [photo['image_url'] for photo in item['photos'] if "image_url" in photo],
+        'year': yearMonth[:4],
+        'month': yearMonth[4:],
+        'mileage': mileage,
+        'fuel_type': translate(fuel_type, 'Russian'),
+        'car_number': car_number,
     }
 
-def save_vehicles():
-    load_dotenv()
-    client = CarapisClient(api_key=os.getenv('CARAPIS_API_KEY'))
 
-    limit = 100
-    max_pages = 7
+async def get_images(page, url):
+    await page.goto(url)
+    await page.wait_for_selector('#detailInfomation')
+    detailInformation = page.locator('#detailInfomation')
+    await page.wait_for_selector('.DetailCarPhotoPc_thumb__2kpDi')
+    main_photo_rel = detailInformation.locator('.swiper-wrapper > div')
+    count = await main_photo_rel.count()
+    images = []
+    for i in range(count):
+        item = main_photo_rel.nth(i)
+        img = item.locator('img')
+        src = await img.get_attribute('src')
+        data_src = await img.get_attribute('data-src')
+        images.append(data_src if '/assets/images/common/' in src else src)
+    return images
 
-    full_data = {
-        "count": 0,
-        "pages": max_pages,
-        "limit": limit,
-        "results": []
+
+async def get_price(page, url):
+    await page.goto(url)
+    price = await page.locator('.DetailLeadCase_price__tfeps').inner_text()
+    return price
+
+async def get_title(page, url):
+    await page.goto(url)
+    title = await page.locator()
+
+async def get_spec_info(page, url):
+    await page.goto(url)
+    await page.wait_for_selector('.DetailSummary_btn_detail__msm-h')
+    await page.click('.DetailSummary_btn_detail__msm-h')
+
+    await page.wait_for_selector('.DetailSummary_info_detail__IfKy1')
+
+    container = page.locator('.DetailSummary_info_detail__IfKy1 li')
+
+    engine_cc = await container.nth(3).locator('span').inner_text()
+    transmission = await container.nth(5).locator('span').inner_text()
+    body_type = await container.nth(6).locator('span').inner_text()
+    color = await container.nth(7).locator('span').inner_text()
+    seats = await container.nth(9).locator('span').inner_text()
+
+    return {
+        'engine_cc': engine_cc,
+        'transmission': translate(transmission, 'Russian'),
+        'body_type': translate(body_type, 'Russian'),
+        'color': translate(color, 'Russian'),
+        'seats': re.sub(r'[^\d]', '', seats)
     }
 
-    for page in range(1, max_pages + 1):
-        vehicles = client.list_vehicles(limit=limit, page=page)
 
-        # Обновляем общее количество (будет перезаписываться, но это не страшно)
-        full_data["count"] = vehicles.get("count", 0)
+async def get_urls(page, url):
+    await page.goto(url)
+    await page.wait_for_selector('#sr_photo')
+    items_photo = page.locator('#sr_photo > li')
+    count_photo = await items_photo.count()
+    urls = []
+    for i in range(count_photo):
+        item = items_photo.nth(i)
+        href = await item.locator('a').get_attribute('href')
+        url = 'https://encar.com' + href
+        urls.append(url)
 
-        for item in vehicles.get("results", []):
-            vehicle_id = item.get("vehicle_id")
-            if vehicle_id:
-                detailed = client.get_vehicle(vehicle_id)
-                detailed_filtered = format_vehicle(detailed)
-                full_data["results"].append(detailed_filtered)
+    items_special = page.locator('#sr_special > tr')
+    count_special = await items_special.count()
+    for i in range(count_special):
+        item = items_special.nth(i)
+        href = await item.locator('a >> nth=0').get_attribute('href')
+        url = 'https://encar.com' + href
+        urls.append(url)
 
-    # Сохраняем все собранные данные в JSON-файл
-    with open('json/vehicles.json', 'w', encoding='utf-8') as f:
-        json.dump(full_data, f, ensure_ascii=False, indent=4)
+    items_normal = page.locator('#sr_normal > tr')
+    count_normal = await items_normal.count()
+    for i in range(count_normal):
+        item = items_normal.nth(i)
+        href = await item.locator('a >> nth=0').get_attribute('href')
+        url = 'https://encar.com' + href
+        urls.append(url)
+
+    return urls
 
 
-if __name__ == '__main__':
-    save_vehicles()
+async def process_url(context, url, conn, sem):
+    async with sem:
+        page = await context.new_page()
+        try:
+            info = await get_info(page, url)
+            spec_info = await get_spec_info(page, url)
+            images_json = json.dumps(await get_images(page, url))
+            price = await get_price(page, url)
+            cleaned = re.sub(r'[^\d,]', '', price)
+            price_won = int(cleaned.replace(',', '')) * 10000
+            price_eur = cc(price_won, 'KRW', 'EUR')
+            price_rub = cc(price_won, 'KRW', 'RUB')
+            engine_cc = int(spec_info['engine_cc'].replace("cc", "").replace(",", "").strip())
+            year = int(info['year'])
+            calculated = calc(price_rub, engine_cc, year)
+            cursor = conn.cursor()
+
+            cursor.execute('''
+                INSERT INTO vehicles (car_number, price_won, price_rub, year, month, mileage, fuel_type, images_json, engine_cc, transmission, body_type, color, seats, duty_eur, duty_rub, fee, price_service, total)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                info['car_number'],
+                price_won,
+                price_rub,
+                year,
+                info['month'],
+                info['mileage'],
+                info['fuel_type'],
+                images_json,
+                engine_cc,
+                spec_info['transmission'],
+                spec_info['body_type'],
+                spec_info['color'],
+                spec_info['seats'],
+                calculated['duty_eur'],
+                calculated['duty_rub'],
+                calculated['fee'],
+                calculated['price_service'],
+                calculated['total'],
+            ))
+            conn.commit()
+        except Exception as e:
+            print(f"Ошибка при обработке {url}: {e}")
+        finally:
+            await page.close()
+
+
+async def run(playwright: Playwright):
+    chromium = playwright.chromium
+    context = await chromium.launch_persistent_context(
+        user_data_dir="/tmp/playwright",
+        headless=True,
+        viewport={"width": 1280, "height": 800},
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    )
+
+    page = context.pages[0] if context.pages else await context.new_page()
+
+    # Получение списка URL-ов
+    urls = []
+    for page_num in range(1):
+        url = f"http://www.encar.com/fc/fc_carsearchlist.do?carType=for#!%7B%22action%22%3A%22(And.Hidden.N._.(C.CarType.N._.Manufacturer.BMW.))%22%2C%22toggle%22%3A%7B%7D%2C%22layer%22%3A%22%22%2C%22sort%22%3A%22ModifiedDate%22%2C%22page%22%3A{page_num}%2C%22limit%22%3A20%2C%22searchKey%22%3A%22%22%2C%22loginCheck%22%3Afalse%2C%22cursor%22%3Anull%7D"
+        urls += await get_urls(page, url)
+
+    # Установка семафора для ограничения количества одновременных задач
+    sem = asyncio.Semaphore(18)  # Можно увеличить до 10 или 15 при необходимости
+
+    # Создание базы данных и таблицы, если они не существуют
+    conn = sqlite3.connect('db/vehicles____.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS vehicles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            car_number TEXT,
+            price_won INTEGER,
+            price_rub INTEGER,
+            year INTEGER,
+            month TEXT,
+            mileage INTEGER,
+            fuel_type TEXT,
+            images_json TEXT,
+            engine_cc INTEGER,
+            transmission TEXT,
+            body_type TEXT,
+            color TEXT,
+            seats TEXT,
+            duty_eur INTEGER,
+            duty_rub INTEGER,
+            fee INTEGER,
+            price_service INTEGER,
+            total INTEGER
+        )
+    ''')
+    conn.commit()
+
+    # Параллельная обработка URL-ов
+    tasks = [process_url(context, url, conn, sem) for url in urls]
+    await asyncio.gather(*tasks)
+
+    conn.close()
+    await context.close()
+
+
+async def main():
+    async with async_playwright() as pw:
+        await run(pw)
+
+
+asyncio.run(main())

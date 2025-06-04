@@ -1,12 +1,10 @@
-def calculate_all(price_rub, engine, year, commercial=False):
+def calculate_all(price_rub, engine_cc, year, commercial=False):
     from datetime import datetime
     from data.currency import convert_currency as cc_func
 
     if cc_func is None:
         raise ValueError("Необходимо передать функцию cc_func для конвертации валют.")
 
-    # Перевод с литров в сантиметры
-    engine_cc = engine * 1000
     # Возраст авто
     age = datetime.now().year - year
 
@@ -59,7 +57,7 @@ def calculate_all(price_rub, engine, year, commercial=False):
     price_service = round(base_price * 1.12, 2)
 
     # === Total sum ===
-    total = fee + duty_rub + price_service + 2000000
+    total = fee + duty_rub + price_service + 200000
     return {
         'duty_eur': round(duty, 2),
         'duty_rub': round(duty_rub, 2),

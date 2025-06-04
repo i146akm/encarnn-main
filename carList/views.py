@@ -3,7 +3,6 @@ from . import models
 from django.core.paginator import Paginator
 from .calc import calculate_all as calc
 from .models import CarAd
-import re
 from rapidfuzz import fuzz
 
 
