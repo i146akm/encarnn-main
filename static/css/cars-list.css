@@ -128,6 +128,7 @@
   font-weight: bold;
   user-select: none;
 }
+
 .sort-wrapper {
   position: relative;
   display: inline-block;
@@ -164,6 +165,9 @@
 }
 .sort-group {
   margin-bottom: 10px;
+}
+.active_sort {
+  color: red;
 }
 
 .sort-group:last-child {

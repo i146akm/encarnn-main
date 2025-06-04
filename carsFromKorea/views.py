@@ -147,7 +147,7 @@ def cars_korea_view(request):
     }
 
     filtered_cars = [car for car in cars if matches_filters(car, filters)]
-    sort = request.GET.get('sort')
+    sort = request.GET.get('sort', 'price_asc')
 
     def parse_year_month(car):
         year = to_int(car.get('year'), 0)
@@ -170,14 +170,22 @@ def cars_korea_view(request):
 
     # Создаем копию параметров запроса и удаляем 'page' и 'sort', чтобы их переопределить при формировании ссылок
     query_params = request.GET.copy()
-    query_params.pop('page', None)
-    query_params.pop('sort', None)
+
+    # При сохранении для пагинации — убираем только page
+    paginator_query = query_params.copy()
+    paginator_query.pop('page', None)
+
+    # При изменении сортировки — убираем старую sort
+    sort_query = query_params.copy()
+    sort_query.pop('sort', None)
+    sort_query.pop('page', None)
 
     return render(request, 'cars/carsKorea.html', {
         'cars': page_obj.object_list,
         'filters': filters,
         'page_obj': page_obj,
-        'query_params': query_params.urlencode(),
+        'query_params': paginator_query.urlencode(),  # для пагинации
+        'sort_query_params': sort_query.urlencode(),  # для смены сортировки
         'current_sort': sort,
     })
 

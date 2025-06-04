@@ -20,7 +20,7 @@ def drop_all_tables():
 
     for table in tables:
         table_name = table[0]
-        if table_name != 'sqlite_sequence':  # системная таблица автоинкремента
+        if table_name != 'sqlite_sequence':
             cursor.execute(f'DELETE FROM vehicles')
             print(f"Удалена таблица: {table_name}")
 

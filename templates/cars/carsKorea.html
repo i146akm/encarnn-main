@@ -24,15 +24,29 @@
     <button class="sort-button" onclick="toggleSortMenu()">Сортировать</button>
     <div class="sort-menu" id="sortMenu">
       <div class="sort-group">
-        <div class="sort-group-title">По цене</div>
-        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=price_asc">Сначала дешёвые</a>
-        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=price_desc">Сначала дорогие</a>
-      </div>
-      <div class="sort-group">
-        <div class="sort-group-title">По дате добавления</div>
-        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=date_added_desc">Сначала новые</a>
-        <a href="?{% if query_params %}{{ query_params }}&{% endif %}sort=date_added_asc">Сначала старые</a>
-      </div>
+  <div class="sort-group-title">По цене</div>
+  <a href="?{% if sort_query_params %}{{ sort_query_params }}&{% endif %}sort=price_asc"
+     {% if current_sort == "price_asc" %}style="color: var(--primary);" class="active_sort"{% endif %}>
+    Сначала дешёвые
+  </a>
+  <a href="?{% if sort_query_params %}{{ sort_query_params }}&{% endif %}sort=price_desc"
+     {% if current_sort == "price_desc" %}style="color: var(--primary);" class="active_sort"{% endif %}>
+    Сначала дорогие
+  </a>
+</div>
+
+<div class="sort-group">
+  <div class="sort-group-title">По дате добавления</div>
+  <a href="?{% if sort_query_params %}{{ sort_query_params }}&{% endif %}sort=date_added_desc"
+     {% if current_sort == "date_added_desc" %}style="color: var(--primary);" class="active_sort"{% endif %}>
+    Сначала новые
+  </a>
+  <a href="?{% if sort_query_params %}{{ sort_query_params }}&{% endif %}sort=date_added_asc"
+     {% if current_sort == "date_added_asc" %}style="color: var(--primary);" class="active_sort"{% endif %}>
+    Сначала старые
+  </a>
+</div>
+
     </div>
 </div>
 
