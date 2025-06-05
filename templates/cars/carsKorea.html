@@ -21,7 +21,19 @@
   <div class="container title">
     <h1>Авто из Кореи</h1>
     <div class="sort-wrapper">
-    <button class="sort-button" onclick="toggleSortMenu()">Сортировать</button>
+    <button class="sort-button" onclick="toggleSortMenu()">
+  {% if current_sort == "price_asc" %}
+    Сначала дешёвые ⬇
+  {% elif current_sort == "price_desc" %}
+    Сначала дорогие ⬆
+  {% elif current_sort == "date_added_desc" %}
+    Сначала новые ⬆
+  {% elif current_sort == "date_added_asc" %}
+  {% else %}
+    Сортировать ⇅
+  {% endif %}
+</button>
+
     <div class="sort-menu" id="sortMenu">
       <div class="sort-group">
   <div class="sort-group-title">По цене</div>

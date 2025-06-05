@@ -11,18 +11,9 @@ def drop_all_tables():
         WHERE id NOT IN (
             SELECT MIN(id)
             FROM vehicles
-            GROUP BY car_number
+            GROUP BY car_number, price_won, title
         );
-
-
     ''')
-    tables = cursor.fetchall()
-
-    for table in tables:
-        table_name = table[0]
-        if table_name != 'sqlite_sequence':
-            cursor.execute(f'DELETE FROM vehicles')
-            print(f"Удалена таблица: {table_name}")
 
     conn.commit()
     conn.close()

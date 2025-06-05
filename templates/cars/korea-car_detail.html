@@ -12,18 +12,23 @@
 </head>
 <body>
     {% include 'components/header.html' %}
-
     <section class="car-detail-top">
         <div class="container">
             <div class="image">
-  <img id="mainPhoto" class="main-photo" src="{{ car.images.0 }}" alt="">
+  <div class="gallery">
+  <div class="main-image-wrapper">
+    <button class="prev">&#10094;</button>
+    <img id="mainPhoto" class="main-photo" src="{{ car.images.0 }}" alt="">
+    <button class="next">&#10095;</button>
+  </div>
 
   <div class="thumbnails">
-    <img class="thumb active" src="{{ car.main_photo }}" alt="">
     {% for img in car.images %}
-      <img class="thumb" src="{{ img }}" alt="">
+      <img class="thumb {% if forloop.first %}active{% endif %}" src="{{ img }}" alt="">
     {% endfor %}
   </div>
+</div>
+
 </div>
             <div class="car-info">
                 <h1>{{ car.title }}</h1>

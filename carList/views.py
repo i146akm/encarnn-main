@@ -81,7 +81,7 @@ def car_view(request):
             continue
 
     # Сортировка
-    sort = request.GET.get('sort')
+    sort = request.GET.get('sort') or 'price_asc'
 
     def get_date(car):
         return (car.year or 0, car.month or 0)
@@ -101,7 +101,9 @@ def car_view(request):
 
     query_params = request.GET.copy()
     query_params.pop('page', None)
-    query_params.pop('sort', None)
+
+    query_params_for_sort = query_params.copy()
+    query_params_for_sort.pop('sort', None)
 
     return render(request, 'cars/carList.html', {
         'car': page_obj.object_list,
@@ -109,6 +111,8 @@ def car_view(request):
         'page_obj': page_obj,
         'query_params': query_params.urlencode(),
         'current_sort': sort,
+        'query_params_for_sort': query_params_for_sort.urlencode(),
+
     })
 
 def car_detail(request, slug):

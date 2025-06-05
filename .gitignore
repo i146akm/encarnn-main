@@ -78,7 +78,7 @@ instance/
 
 # Scrapy stuff:
 .scrapy
-
+manifest.json
 # Sphinx documentation
 docs/_build/
 media
