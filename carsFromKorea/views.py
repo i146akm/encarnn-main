@@ -11,12 +11,12 @@ from rapidfuzz import fuzz
 
 
 def load_cars():
-    db_path = os.path.join(settings.BASE_DIR, 'data', 'db', 'vehicles.db')
+    db_path = os.path.join(settings.BASE_DIR, 'data', 'db', 'test.db')
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM vehicles")
+    cursor.execute("SELECT * FROM cars")
     rows = cursor.fetchall()
     conn.close()
 
@@ -25,8 +25,10 @@ def load_cars():
         car = dict(row)
         try:
             car['images'] = json.loads(car['images_json'])  # превратить строку в список
+            car['equipments'] = json.loads(car['equipments_json'])
         except Exception:
             car['images'] = []  # на случай ошибки
+            car['equipments'] = []
         cars.append(car)
 
     return cars
@@ -98,6 +100,9 @@ def matches_filters(car, filters):
     if filters.get('fuel_type') and not words_match_loose(filters['fuel_type'], car.get('fuel_type', '')):
         return False
 
+    if filters.get('body_type') and not words_match_loose(filters['body_type'], car.get('body_type', '')):
+        return False
+
     if filters.get('transmission'):
         expected = TRANSMISSION_MAP.get(filters['transmission'], filters['transmission'])
         if not words_match_loose(expected, car.get('transmission', '')):
@@ -112,6 +117,12 @@ def matches_filters(car, filters):
         return False
 
     if filters.get('end_year') and to_int(car.get('year')) > to_int(filters['end_year']):
+        return False
+
+    if filters.get('start_month') and to_int(car.get('month')) < to_int(filters['start_month']):
+        return False
+
+    if filters.get('end_month') and to_int(car.get('month')) > to_int(filters['end_month']):
         return False
 
     if filters.get('mileage_min') and to_int(car.get('mileage')) < to_int(filters['mileage_min']):
@@ -137,9 +148,12 @@ def cars_korea_view(request):
         'gen': request.GET.get('gen'),
         'fuel_type': request.GET.get('fuel_type'),
         'transmission': request.GET.get('transmission'),
+        'body_type': request.GET.get('body_type'),
         'color': request.GET.get('color'),
         'start_year': request.GET.get('start_year'),
         'end_year': request.GET.get('end_year'),
+        'start_month': request.GET.get('start_month'),
+        'end_month': request.GET.get('end_month'),
         'mileage_min': request.GET.get('mileage_min'),
         'mileage_max': request.GET.get('mileage_max'),
         'price_min': request.GET.get('price_min'),

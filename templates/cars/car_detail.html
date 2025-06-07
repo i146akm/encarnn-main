@@ -12,19 +12,26 @@
 </head>
 <body>
     {% include 'components/header.html' %}
-
     <section class="car-detail-top">
         <div class="container">
-            <div class="image">
-  <img id="mainPhoto" class="main-photo" src="{{ car.main_photo.url }}" alt="">
-
-  <div class="thumbnails">
-    <img class="thumb active" src="{{ car.main_photo.url }}" alt="">
-    {% for img in car.photos.all %}
-      <img class="thumb" src="{{ img.image.url }}" alt="">
-    {% endfor %}
-  </div>
-</div>
+            <div class="gallery">
+              <div class="main-photo-wrapper">
+                <img id="mainPhoto" class="main-photo" src="{{ car.main_photo.url }}" alt="">
+              </div>
+              <div class="thumbnails">
+                <img class="thumb active" src="{{ car.main_photo.url }}" alt="">
+                {% for img in car.photos.all %}
+                  {% if not forloop.first %}
+                    <img class="thumb" src="{{ img.image.url }}" alt="">
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <!-- Modal -->
+            <div id="modal" class="modal">
+              <span class="close">&times;</span>
+              <img class="modal-content" id="modalImg">
+            </div>
             <div class="car-info">
                 <h1>{{ car.name }}</h1>
                 <div><span>Добавлено: </span><span>{{ car.created_at }}</span></div>
@@ -87,6 +94,67 @@
                     <li><span>Гарантия: </span><span>{{ car.warranty_type|default:"N/A" }}</span></li>
                 </ul>
             </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Экстерьер/Интерьер</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                  {% for i in car_options.0 %}
+                    {% if i.1 %}
+                      <li>{{ i.0 }}</li>
+                    {% else %}
+                      <li class="noclass">{{ i.0 }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Безопасность</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                  {% for i in car_options.1 %}
+                    {% if i.1 %}
+                      <li>{{ i.0 }}</li>
+                    {% else %}
+                      <li class="noclass">{{ i.0 }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Удобство/Мультимедиа</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                  {% for i in car_options.2 %}
+                    {% if i.1 %}
+                      <li>{{ i.0 }}</li>
+                    {% else %}
+                      <li class="noclass">{{ i.0 }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Сиденья</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                  {% for i in car_options.3 %}
+                    {% if i.1 %}
+                      <li>{{ i.0 }}</li>
+                    {% else %}
+                      <li class="noclass">{{ i.0 }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            </div>
+        </div>
         </div>
     </section>
 

@@ -14,22 +14,26 @@
     {% include 'components/header.html' %}
     <section class="car-detail-top">
         <div class="container">
-            <div class="image">
-  <div class="gallery">
-  <div class="main-image-wrapper">
-    <button class="prev">&#10094;</button>
-    <img id="mainPhoto" class="main-photo" src="{{ car.images.0 }}" alt="">
-    <button class="next">&#10095;</button>
-  </div>
+            <div class="gallery">
+              <div class="main-photo-wrapper">
+                <img id="mainPhoto" class="main-photo" src="{{ car.images.0 }}" alt="">
+              </div>
+              <div class="thumbnails">
+                <img class="thumb active" src="{{ car.images.0 }}" alt="">
+                {% for img in car.images %}
+                  {% if not forloop.first %}
+                    <img class="thumb" src="{{ img }}" alt="">
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
 
-  <div class="thumbnails">
-    {% for img in car.images %}
-      <img class="thumb {% if forloop.first %}active{% endif %}" src="{{ img }}" alt="">
-    {% endfor %}
-  </div>
-</div>
+            <!-- Modal -->
+            <div id="modal" class="modal">
+              <span class="close">&times;</span>
+              <img class="modal-content" id="modalImg">
+            </div>
 
-</div>
             <div class="car-info">
                 <h1>{{ car.title }}</h1>
                 <div class="car-info-info">
@@ -85,6 +89,66 @@
                     <li><span>Цвет: </span><span>{{ car.color|default:"N/A" }}</span></li>
                     <li><span>Топливо: </span><span>{{ car.fuel_type|default:"N/A" }}</span></li>
                     <li><span>Тип кузова: </span><span>{{ car.body_type|default:"N/A" }}</span></li>
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Экстерьер/Интерьер</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                    {% for i in car.equipments.design %}
+                        {% if i.has_class %}
+                            <li>{{ i.text }}</li>
+                        {% else %}
+                            <li class="noclass">{{ i.text }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Безопасность</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                    {% for i in car.equipments.safety %}
+                        {% if i.has_class %}
+                            <li>{{ i.text }}</li>
+                        {% else %}
+                            <li class="noclass">{{ i.text }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Удобство/Мультимедиа</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                    {% for i in car.equipments.features %}
+                        {% if i.has_class %}
+                            <li>{{ i.text }}</li>
+                        {% else %}
+                            <li class="noclass">{{ i.text }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="car-specifications">
+                <div class="car-detail-bottom-title">
+                    <h3>Сиденья</h3>
+                    <button class="bottom-toggle fas fa-chevron-down"></button>
+                </div>
+                <ul>
+                    {% for i in car.equipments.seats %}
+                        {% if i.has_class %}
+                            <li>{{ i.text }}</li>
+                        {% else %}
+                            <li class="noclass">{{ i.text }}</li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>

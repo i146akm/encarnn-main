@@ -5,17 +5,17 @@
             <h1 class="h1">Каталог авто из Кореи</h1>
             <div class="sec-1-inner-row-1">
                 <div class="custom-select-container" json-level data-level="1">
-                    <input type="text" class="custom-input" placeholder="Бренд" name="brand">
+                    <input type="text" class="custom-input" placeholder="Бренд" name="brand" value="{{ filters.brand|default:'' }}">
                     <div class="custom-options"></div>
                     <div class="toggle fas fa-chevron-down"></div>
                 </div>
                 <div class="custom-select-container" json-level data-level="2">
-                    <input type="text" class="custom-input" placeholder="Модель" disabled name="model">
+                    <input type="text" class="custom-input" placeholder="Модель" name="model" value="{{ filters.model|default:'' }}">
                     <div class="custom-options"></div>
                     <div class="toggle fas fa-chevron-down"></div>
                 </div>
                 <div class="custom-select-container" json-level data-level="3">
-                    <input type="text" class="custom-input" placeholder="Поколение" disabled name="generation">
+                    <input type="text" class="custom-input" placeholder="Поколение" name="gen" value="{{ filters.gen|default:'' }}">
                     <div class="custom-options"></div>
                     <div class="toggle fas fa-chevron-down"></div>
                 </div>
@@ -25,22 +25,22 @@
                     <h1>Характеристики</h1>
                     <div class="selects">
                         <div class="custom-select-container" id="fuel-type">
-                            <input type="text" class="custom-input" placeholder="Тип топлива" name="fuel_type">
+                            <input type="text" class="custom-input" placeholder="Тип топлива" name="fuel_type" value="{{ filters.fuel_type|default:'' }}">
                             <div class="custom-options"></div>
                             <div class="toggle fas fa-chevron-down"></div>
                         </div>
                         <div class="custom-select-container" id="transmission-type">
-                            <input type="text" class="custom-input" placeholder="Трансмиссия" name="transmission">
+                            <input type="text" class="custom-input" placeholder="Трансмиссия" name="transmission" value="{{ filters.transmission|default:'' }}">
                             <div class="custom-options"></div>
                             <div class="toggle fas fa-chevron-down"></div>
                         </div>
                         <div class="custom-select-container" id="body-type">
-                            <input type="text" class="custom-input" placeholder="Тип кузова" name="body">
+                            <input type="text" class="custom-input" placeholder="Тип кузова" name="body_type" value="{{ filters.body_type|default:'' }}">
                             <div class="custom-options"></div>
                             <div class="toggle fas fa-chevron-down"></div>
                         </div>
                         <div class="custom-select-container" id="color">
-                            <input type="text" class="custom-input" placeholder="Цвет" name="color">
+                            <input type="text" class="custom-input" placeholder="Цвет" name="color" value="{{ filters.color|default:'' }}">
                             <div class="custom-options"></div>
                             <div class="toggle fas fa-chevron-down"></div>
                         </div>
@@ -51,22 +51,22 @@
                         <h1>Год выпуска</h1>
                         <div class="selects">
                             <div class="custom-select-container" id="start-prod-year">
-                                <input type="text" class="custom-input" placeholder="Начальный год выпуска" name="end_month">
+                                <input type="text" class="custom-input" placeholder="Начальный год выпуска" name="start_year" value="{{ filters.start_year|default:'' }}">
                                 <div class="custom-options"></div>
                                 <div class="toggle fas fa-chevron-down"></div>
                             </div>
                             <div class="custom-select-container" id="start-prod-month">
-                                <input type="text" class="custom-input" placeholder="Начальный месяц выпуска" name="start_month">
+                                <input type="text" class="custom-input" placeholder="Начальный месяц выпуска" name="start_month" value="{{ filters.start_month|default:'' }}">
                                 <div class="custom-options"></div>
                                 <div class="toggle fas fa-chevron-down"></div>
                             </div>
                             <div class="custom-select-container" id="end-prod-year">
-                                <input type="text" class="custom-input" placeholder="Конечный год выпуска" name="start_year">
+                                <input type="text" class="custom-input" placeholder="Конечный год выпуска" name="end_year" value="{{ filters.end_year|default:'' }}">
                                 <div class="custom-options"></div>
                                 <div class="toggle fas fa-chevron-down"></div>
                             </div>
                             <div class="custom-select-container" id="end-prod-month">
-                                <input type="text" class="custom-input" placeholder="Конечный месяц выпуска" name="end_year">
+                                <input type="text" class="custom-input" placeholder="Конечный месяц выпуска" name="end_month" value="{{ filters.end_month|default:'' }}">
                                 <div class="custom-options"></div>
                                 <div class="toggle fas fa-chevron-down"></div>
                             </div>
@@ -76,12 +76,12 @@
                         <h1>Пробег</h1>
                         <div class="selects">
                             <div class="custom-select-container" id="mileage-min">
-                                <input type="text" class="custom-input" placeholder="Мин. пробег" name='mileage_min'>
+                                <input type="text" class="custom-input" placeholder="Мин. пробег" name='mileage_min' value="{{ filters.mileage_min|default:'' }}">
                                 <div class="custom-options"></div>
                                 <div class="toggle fas fa-chevron-down"></div>
                             </div>
                             <div class="custom-select-container" id="mileage-max">
-                                <input type="text" class="custom-input" placeholder="Макс. пробег" name="mileage_max">
+                                <input type="text" class="custom-input" placeholder="Макс. пробег" name="mileage_max" value="{{ filters.mileage_max|default:'' }}">
                                 <div class="custom-options"></div>
                                 <div class="toggle fas fa-chevron-down"></div>
                             </div>
@@ -92,13 +92,13 @@
             <h1>Стоимость</h1>
             <div class="sec-1-inner-row-3">
                 <div class="custom-select-container" id="price-min">
-                    <input type="text" class="custom-input" placeholder="Мин. стоимость" name="price_min">
+                    <input type="text" class="custom-input" placeholder="Мин. стоимость" name="price_min" value="{{ filters.price_min|default:'' }}">
                     <div class="custom-options"></div>
                     <div class="toggle fas fa-chevron-down"></div>
                 </div>
                 <button>Очистить</button>
                 <div class="custom-select-container" id="price-max">
-                    <input type="text" class="custom-input" placeholder="Макс. стоимость" name="price_max">
+                    <input type="text" class="custom-input" placeholder="Макс. стоимость" name="price_max" value="{{ filters.price_max|default:'' }}">
                     <div class="custom-options"></div>
                     <div class="toggle fas fa-chevron-down"></div>
                 </div>

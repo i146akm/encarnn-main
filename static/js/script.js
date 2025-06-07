@@ -519,7 +519,7 @@ const data = {
 }
 document.querySelectorAll('input').forEach(input => {
   input.setAttribute('autocomplete', 'off')
-})
+});
 
 const containers = document.querySelectorAll('.custom-select-container[data-level]');
 
@@ -540,12 +540,15 @@ function getOptions(level) {
 function enableLevel(level) {
   const input = containers[level - 1].querySelector('.custom-input');
   input.disabled = false;
-  input.value = '';
   containers[level - 1].querySelector('.custom-options').innerHTML = '';
+
+  // Заполняем опции, если есть
+  const options = getOptions(level);
+  const optionsContainer = containers[level - 1].querySelector('.custom-options');
+  optionsContainer.innerHTML = options.map(opt => `<div class="custom-option">${opt}</div>`).join('');
 }
 
 function resetBelow(level) {
-  // Сбрасываем и отключаем только селекторы цепочки ниже уровня level
   for (let i = level; i < containers.length; i++) {
     const input = containers[i].querySelector('.custom-input');
     input.value = '';
@@ -553,6 +556,21 @@ function resetBelow(level) {
     containers[i].querySelector('.custom-options').innerHTML = '';
   }
 }
+
+// Проверка при загрузке страницы
+window.addEventListener('DOMContentLoaded', () => {
+  const brandInput = containers[0].querySelector('.custom-input');
+  const modelInput = containers[1].querySelector('.custom-input');
+
+  if (brandInput.value && data[brandInput.value]) {
+    enableLevel(2);
+
+    if (modelInput.value && data[brandInput.value][modelInput.value]) {
+      enableLevel(3);
+    }
+  }
+});
+
 
 function initCustomSelect(container, options = null) {
   const input = container.querySelector('.custom-input');

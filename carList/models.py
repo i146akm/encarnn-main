@@ -150,6 +150,67 @@ class CarAd(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
+    # Design
+    option_1_1 = models.BooleanField("Люк", default=False, null=True)
+    option_1_2 = models.BooleanField("Головная лампа (светодиод)", default=False, null=True)
+    option_1_3 = models.BooleanField("Электрический багажник с электроприводом", default=False, null=True)
+    option_1_4 = models.BooleanField("Призрачное закрытие двери", default=False, null=True)
+    option_1_5 = models.BooleanField("Электропривод складывающихся боковых зеркал", default=False, null=True)
+    option_1_6 = models.BooleanField("Алюминиевые диски", default=False, null=True)
+    option_1_7 = models.BooleanField("Багажник на крыше", default=False, null=True)
+    option_1_8 = models.BooleanField("Подогрев руля", default=False, null=True)
+    option_1_9 = models.BooleanField("Электропривод рулевого колеса", default=False, null=True)
+    option_1_10 = models.BooleanField("Переключение передач веслами", default=False, null=True)
+    option_1_11 = models.BooleanField("Пульт дистанционного управления на рулевом колесе", default=False, null=True)
+    option_1_12 = models.BooleanField("Зеркало в комнате КСМ", default=False, null=True)
+    option_1_13 = models.BooleanField("Высокий проход", default=False, null=True)
+    option_1_14 = models.BooleanField("Электропривод дверного замка", default=False, null=True)
+    option_1_15 = models.BooleanField("Усилитель руля", default=False, null=True)
+    option_1_16 = models.BooleanField("Электрические окна", default=False, null=True)
+
+    # Safety
+    option_2_1 = models.BooleanField("Подушка безопасности (сиденье водителя, сиденье пассажира)", default=False, null=True)
+    option_2_2 = models.BooleanField("Подушка безопасности (боковая)", default=False, null=True)
+    option_2_3 = models.BooleanField("Подушка безопасности (шторка)", default=False, null=True)
+    option_2_4 = models.BooleanField("Антиблокировочная система тормозов (ABS)", default=False, null=True)
+    option_2_5 = models.BooleanField("Противоскользящее покрытие (TCS)", default=False, null=True)
+    option_2_6 = models.BooleanField("Электронная система контроля устойчивости (ESC)", default=False, null=True)
+    option_2_7 = models.BooleanField("Датчик давления в шинах (TPMS)", default=False, null=True)
+    option_2_8 = models.BooleanField("Система предупреждения о выезде с полосы движения (LDWS)", default=False, null=True)
+    option_2_9 = models.BooleanField("Поддержка с электронным управлением (ECS)", default=False, null=True)
+    option_2_10 = models.BooleanField("Датчик парковки (передний, задний)", default=False, null=True)
+    option_2_11 = models.BooleanField("Система предупреждения о боковом столкновении сзади", default=False, null=True)
+    option_2_12 = models.BooleanField("Задняя камера", default=False, null=True)
+    option_2_13 = models.BooleanField("Обзор на 360 градусов", default=False, null=True)
+
+    # Comfort
+    option_3_1 = models.BooleanField("Круиз-контроль (обычный, адаптивный)", default=False, null=True)
+    option_3_2 = models.BooleanField("Проекционный дисплей (HUD)", default=False, null=True)
+    option_3_3 = models.BooleanField("Электронный стояночный тормоз (EPB)", default=False, null=True)
+    option_3_4 = models.BooleanField("Автоматическое кондиционирование воздуха", default=False, null=True)
+    option_3_5 = models.BooleanField("Смарт-ключ", default=False, null=True)
+    option_3_6 = models.BooleanField("Беспроводной дверной замок", default=False, null=True)
+    option_3_7 = models.BooleanField("Датчик дождя", default=False, null=True)
+    option_3_8 = models.BooleanField("Автоматический свет", default=False, null=True)
+    option_3_9 = models.BooleanField("Шторка/жалюзи (заднее сиденье, сзади)", default=False, null=True)
+    option_3_10 = models.BooleanField("Навигация", default=False, null=True)
+    option_3_11 = models.BooleanField("AV-монитор на переднем сиденье", default=False, null=True)
+    option_3_12 = models.BooleanField("AV-монитор на заднем сиденье", default=False, null=True)
+    option_3_13 = models.BooleanField("Bluetooth", default=False, null=True)
+    option_3_14 = models.BooleanField("CD-плеер", default=False, null=True)
+    option_3_15 = models.BooleanField("USB-порт", default=False, null=True)
+    option_3_16 = models.BooleanField("AUX-приемник", default=False, null=True)
+
+    # Seat
+    option_4_1 = models.BooleanField("Кожаные сиденья", default=False, null=True)
+    option_4_2 = models.BooleanField("Электропривод сидений (водительское сиденье, пассажирское сиденье)", default=False, null=True)
+    option_4_3 = models.BooleanField("Электропривод сидений (задние сиденья)", default=False, null=True)
+    option_4_4 = models.BooleanField("Подогрев сидений (передних и задних)", default=False, null=True)
+    option_4_5 = models.BooleanField("Сиденья с памятью (водительское сиденье, пассажирское сиденье)", default=False, null=True)
+    option_4_6 = models.BooleanField("Вентилируемые сиденья (водительское сиденье, пассажирское сиденье)",
+                                     default=False, null=True)
+    option_4_7 = models.BooleanField("Вентилируемые сиденья (задние сиденья)", default=False, null=True)
+    option_4_8 = models.BooleanField("Массажная простыня", default=False, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

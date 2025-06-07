@@ -57,3 +57,32 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 setupToggle('#toggleButton', '#toggleBlock');
+
+const mainPhoto = document.getElementById('mainPhoto');
+const thumbnails = document.querySelectorAll('.thumb');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+const closeBtn = document.querySelector('.close');
+
+thumbnails.forEach(thumb => {
+thumb.addEventListener('click', () => {
+  mainPhoto.src = thumb.src;
+  thumbnails.forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+});
+});
+
+mainPhoto.addEventListener('click', () => {
+modal.style.display = 'block';
+modalImg.src = mainPhoto.src;
+});
+
+closeBtn.addEventListener('click', () => {
+modal.style.display = 'none';
+});
+
+window.addEventListener('click', e => {
+if (e.target === modal) {
+  modal.style.display = 'none';
+}
+});

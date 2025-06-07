@@ -44,6 +44,86 @@
 .euro-rate {
   margin-bottom: 20px;
 }
+.gallery {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.main-photo-wrapper,
+.thumbnails-wrapper {
+  width: 100%;
+}
+
+.main-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+.thumbnails-wrapper {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+.noclass {
+  color: #cccccc
+}
+.noclass:hover {
+  color: var(--dark)
+}
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.thumb {
+  height: 60px;
+  flex: 0 0 auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.thumb.active {
+  border: 2px solid #007bff;
+}
+
+/* Modal full-view */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.85);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
 .bullet {
   color: var(--primary);
@@ -197,18 +277,19 @@
   transform: rotate(180deg);
 }
 .car-detail-bottom .container > div ul {
-  display: flex;
   flex-wrap: wrap;
   gap: 20px;
   list-style: none;
   padding: 30px 20px;
   display: none;
   transition: all 0.3s ease;
+  background: #f9f9f9
 }
 .car-detail-bottom .container > div ul li {
   border-bottom: 1px solid rgba(34, 34, 34, 0.3);
   padding: 10px;
   display: block;
+  font-weight: 400;
 }
 .car-detail-bottom .container > div ul li span:first-child {
   font-weight: 600;
