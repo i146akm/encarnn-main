@@ -715,3 +715,19 @@ initCustomSelect(document.querySelector('#mileage-min'), options_mileage_min);
 initCustomSelect(document.querySelector('#mileage-max'), options_mileage_max);
 initCustomSelect(document.querySelector('#price-min'), options_price_min);
 initCustomSelect(document.querySelector('#price-max'), options_price_max);
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const clearBtn = document.querySelector('#clear-filters');
+  const filterForm = document.querySelector('#filter_form');
+
+  clearBtn.addEventListener('click', () => {
+    filterForm.querySelectorAll('input').forEach(input => {
+      input.value = '';
+    });
+    filterForm.querySelectorAll('.custom-select-container').forEach(container => {
+      container.classList.remove('active', 'open');
+    });
+  });
+});

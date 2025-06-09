@@ -48,10 +48,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 ]
 
-# settings.py
-
 CSRF_TRUSTED_ORIGINS = [
-    'https://595f-92-62-70-40.ngrok-free.app',  # твой ngrok-домен
+    'https://8225-92-62-70-40.ngrok-free.app',  # твой ngrok-домен
 ]
 
 MIDDLEWARE = [
