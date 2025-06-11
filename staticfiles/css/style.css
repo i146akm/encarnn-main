@@ -1,0 +1,364 @@
+@import 'variables.css';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat";
+  color: var(--dark);
+}
+
+.container {
+  max-width: 1230px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.1s;
+}
+a:hover {
+  color: var(--primary);
+}
+
+section:not(:first-of-type) {
+  margin-top: var(--sec-margin);
+}
+
+.sec-content {
+  margin-top: var(--block-margin);
+}
+header .header-currency {
+  background-color: #333;
+  padding: 5px 0;
+}
+header .header-currency .container {
+  display: flex;
+  align-items: center;
+  gap: 110px;
+}
+header .header-currency .container span {
+  color: var(--white);
+  font-weight: 300;
+}
+header .header-main {
+  padding: 10px 0;
+}
+header .header-main .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .header-main .container > div {
+  display: flex;
+  flex-direction: column;
+}
+header .header-main .container > div a {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 34px;
+}
+header .header-main .container > div span:last-child {
+  font-size: 22px;
+  font-family: "Poiret One";
+  font-weight: 600;
+}
+header .header-main .container .desktop-menu ul {
+  display: flex;
+  gap: 44px;
+}
+
+body {
+  background-color: var(--white);
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+.sec-1 {
+  background-size: cover;
+  background-position: 20% 0;
+  padding: 100px 0 ;
+}
+.sec-1 .container {
+  height: 100%;
+}
+.sec-1 .container .sec-1-inner {
+  -webkit-backdrop-filter: blur(18px);
+          backdrop-filter: blur(18px);
+  height: 100%;
+  border-radius: 30px;
+  padding: 40px;
+  border: 1px solid #222;
+}
+.sec-1 .container .sec-1-inner h1 {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+.sec-1 .container .sec-1-inner .custom-select-container {
+  position: relative;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .toggle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: #F3F3F3;
+  aspect-ratio: 1/1;
+  text-align: center;
+  align-content: center;
+  color: #999;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input {
+  width: 100%;
+  padding: 14px;
+  box-sizing: border-box;
+  outline: none;
+  background-color: var(--white);
+  border: none;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input::-moz-placeholder {
+  color: var(--dark);
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input::placeholder {
+  color: var(--dark);
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input:disabled {
+  background-color: var(--white);
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input:disabled::-moz-placeholder {
+  color: #999;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input:disabled::placeholder {
+  color: #999;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--white);
+  border-top: none;
+  z-index: 10;
+  display: none;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options.show {
+  display: block;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options .custom-option {
+  padding: 8px;
+  cursor: pointer;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options .custom-option:nth-child(2n) {
+  background-color: #f0f0f0;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options .custom-option:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-1 {
+  display: flex;
+  gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-1 .custom-select-container {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: stretch;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 > div:first-child {
+  flex: 1;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 > div:last-child {
+  flex: 2.03;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .sec-1-inner-mid-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .specifications > .selects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .production-date > .selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .mileage > .selects {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .mileage > .selects > div {
+  flex: 1;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 {
+  display: grid;
+  grid-template-columns: 32.7% 32.7%;
+  grid-gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 button {
+  border: none;
+  cursor: pointer;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 button:first-child {
+  background-color: var(--white);
+  color: var(--primary);
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 button:last-child {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.pagination .page-numbers {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+
+.pagination .page-numbers a,
+.pagination .page-numbers span.current-page {
+  padding: 6px 12px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  user-select: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+.nav-link {
+  color: var(--white) !important;
+}
+.nav-link:hover {
+  color: var(--primary) !important;
+  background-color: var(--white) !important;
+}
+.pagination .page-numbers a:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.pagination .page-numbers span.current-page {
+  background-color: var(--primary);
+  color: white;
+  cursor: default;
+}
+
+.pagination .nav-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+}
+
+.pagination .nav-buttons a {
+  padding: 6px 18px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination .nav-buttons a:hover {
+  background-color: var(--primary);
+  color: white;
+}
+footer {
+  background-color: var(--dark);
+  padding: 70px 0;
+  margin-top: calc(var(--sec-margin) * 3);
+  position: relative;
+  bottom: 0;
+}
+.fa-arrow-up {
+  pointer-events: none;
+  color: var(--white);
+}
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
+    background-color: var(--primary);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+  }
+#backToTop:hover {
+  background-color: #a00030;
+}
+footer h1, footer p, footer a, footer i, footer span {
+  color: var(--white);
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+footer .container > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+}
+footer .container > div:nth-child(1) a {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 34px;
+}
+footer .container > div:nth-child(1) span:last-child {
+  font-size: 22px;
+  font-family: "Poiret One";
+  font-weight: 600;
+}
+footer .container > div h1 {
+  margin-bottom: var(--block-margin);
+  font-size: var(--sec-title);
+  font-weight: normal;
+}
+footer .container > div li, footer .container > div p, footer .container > div span {
+  line-height: 35px;
+}
+footer .container > div:nth-child(4) nav ul {
+  display: flex;
+  gap: 15px;
+}
+footer .container > div:nth-child(4) nav ul li a i {
+  font-size: 140%;
+}

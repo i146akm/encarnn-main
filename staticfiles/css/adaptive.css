@@ -1,0 +1,38 @@
+@media (max-width: 768px) {
+  header .header-currency .container {
+    gap: 0;
+    justify-content: space-around;
+  }
+  header .header-main .container .desktop-menu {
+    display: none;
+  }
+  header .header-main .container .mobile-menu-button {
+    display: block;
+  }
+  .sec-1 .container .sec-1-inner {
+    padding: 15px;
+  }
+  .sec-1 .container .sec-1-inner .sec-1-inner-row-1 {
+    flex-wrap: wrap;
+  }
+  .sec-1 .container .sec-1-inner .sec-1-inner-row-1 .custom-select-container {
+    flex: 0 0 100%;
+  }
+  .sec-1 .container .sec-1-inner .sec-1-inner-row-2 {
+    flex-direction: column;
+    gap: 0;
+  }
+  .sec-1 .container .sec-1-inner .sec-1-inner-row-2 .specifications {
+    width: 100%;
+  }
+  .sec-1 .container .sec-1-inner .sec-1-inner-row-2 .specifications .selects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .sec-1 .container .sec-1-inner .sec-1-inner-row-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .car-detail-top .container {
+    grid-template-columns: 1fr;
+  }
+}

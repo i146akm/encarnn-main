@@ -26,9 +26,9 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://ebc8-92-62-70-40.ngrok-free.app/', '*']
+ALLOWED_HOSTS = ['encarnn.ru', 'www.encarnn.ru', '127.0.0.1']
 
 
 # Application definition
@@ -46,10 +46,6 @@ INSTALLED_APPS = [
     'pages',
     'ckeditor',
     'ckeditor_uploader',
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://8225-92-62-70-40.ngrok-free.app',  # твой ngrok-домен
 ]
 
 MIDDLEWARE = [
@@ -185,6 +181,7 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

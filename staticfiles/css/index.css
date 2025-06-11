@@ -1,0 +1,220 @@
+@import 'variables.css';
+.sec-1 {
+  background-image: url("../images/sec-1-bg.svg");
+  background-size: cover;
+  background-position: 20% 0;
+  padding: 26px 0;
+}
+.sec-1 .container {
+  height: 100%;
+}
+.sec-1 .container .sec-1-inner {
+  -webkit-backdrop-filter: blur(18px);
+          backdrop-filter: blur(18px);
+  height: 100%;
+  border-radius: 30px;
+  padding: 40px;
+}
+.sec-1 .container .sec-1-inner h1 {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+.sec-1 .container .sec-1-inner .custom-select-container {
+  position: relative;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .toggle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: #F3F3F3;
+  aspect-ratio: 1/1;
+  text-align: center;
+  align-content: center;
+  color: #999;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input {
+  width: 100%;
+  padding: 14px;
+  box-sizing: border-box;
+  outline: none;
+  background-color: var(--white);
+  border: none;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input::-moz-placeholder {
+  color: var(--dark);
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input::placeholder {
+  color: var(--dark);
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input:disabled {
+  background-color: var(--white);
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input:disabled::-moz-placeholder {
+  color: #999;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-input:disabled::placeholder {
+  color: #999;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--white);
+  border-top: none;
+  z-index: 10;
+  display: none;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options.show {
+  display: block;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options .custom-option {
+  padding: 8px;
+  cursor: pointer;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options .custom-option:nth-child(2n) {
+  background-color: #f0f0f0;
+}
+.sec-1 .container .sec-1-inner .custom-select-container .custom-options .custom-option:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-1 {
+  display: flex;
+  gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-1 .custom-select-container {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: stretch;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 > div:first-child {
+  flex: 1;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 > div:last-child {
+  flex: 2.5;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .sec-1-inner-mid-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .specifications > .selects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .production-date > .selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .mileage > .selects {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-2 .mileage > .selects > div {
+  flex: 1;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 {
+  display: grid;
+  grid-template-columns: 30% 30%;
+  grid-gap: 10px;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 button {
+  border: none;
+  cursor: pointer;
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 button:first-child {
+  background-color: var(--white);
+  color: var(--primary);
+}
+.sec-1 .container .sec-1-inner .sec-1-inner-row-3 button:last-child {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.sec-2 .container h1 {
+  font-size: var(--sec-title);
+  font-weight: 500;
+}
+.sec-2 .container .sec-2-brands ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-gap: 7px;
+}
+.sec-2 .container .sec-2-brands ul .item {
+  border: 1px solid #999;
+  transition: 0.1s;
+}
+.sec-2 .container .sec-2-brands ul .item a {
+  display: block;
+  padding: 15px 5px;
+}
+.sec-2 .container .sec-2-brands ul .item a .image-wrapper {
+  text-align: center;
+}
+.sec-2 .container .sec-2-brands ul .item a .image-wrapper img {
+  width: 100%;
+}
+.sec-2 .container .sec-2-brands ul .item a p {
+  margin: 10px 0 0 0;
+  font-size: var(--p-20);
+  text-align: center;
+}
+.sec-2 .container .sec-2-brands ul .item:hover {
+  box-shadow: 0 5px 5px #999;
+}
+
+.sec-3 .container h1 {
+  font-size: var(--sec-title);
+  font-weight: 500;
+}
+.sec-3 .container .sec-3-byprice ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 7px;
+}
+.sec-3 .container .sec-3-byprice ul .item {
+  border: 1px solid #999;
+  transition: 0.1s;
+}
+.sec-3 .container .sec-3-byprice ul .item a {
+  display: block;
+}
+.sec-3 .container .sec-3-byprice ul .item a .image-wrapper {
+  width: 100%;
+}
+.sec-3 .container .sec-3-byprice ul .item a .image-wrapper img {
+  width: 100%;
+}
+.sec-3 .container .sec-3-byprice ul .item a .sec-3-byprice-item-text {
+  padding: 30px 0 12px 10px;
+}
+.sec-3 .container .sec-3-byprice ul .item a .sec-3-byprice-item-text h2 {
+  font-size: var(--card-title);
+  color: var(--primary);
+}
+.sec-3 .container .sec-3-byprice ul .item a .sec-3-byprice-item-text p {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  color: #666;
+}
+.sec-3 .container .sec-3-byprice ul .item:hover {
+  box-shadow: 0px 5px 5px #999;
+}

@@ -1,0 +1,296 @@
+@import 'variables.css';
+.car-detail-top .container {
+  margin: 40px auto 0 auto;
+}
+.car-detail-top .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  align-items: stretch;
+  grid-gap: 15px;
+}
+.car-detail-top .container .image {
+  min-width: none;
+}
+.currency-box {
+  overflow: hidden;
+  width:100%;
+  margin: 10px auto 0 auto;
+  background: #f0f0f5;
+  border-radius: 10px;
+  max-height: 1000px;
+  transition: .3s linear;
+
+}
+.currency-box > .currency-box-inner {
+  width:100%;
+  padding: 20px 25px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  color: #222;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.hidden {
+  max-height: 0 !important;
+}
+.currency-box h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.currency-box strong {
+  font-weight: bold;
+}
+
+.euro-rate {
+  margin-bottom: 20px;
+}
+.gallery {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.main-photo-wrapper,
+.thumbnails-wrapper {
+  width: 100%;
+}
+
+.main-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+.thumbnails-wrapper {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+.noclass {
+  color: #cccccc
+}
+.noclass:hover {
+  color: var(--dark)
+}
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.thumb {
+  height: 60px;
+  flex: 0 0 auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.thumb.active {
+  border: 2px solid #007bff;
+}
+
+/* Modal full-view */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.85);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bullet {
+  color: var(--primary);
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.cost-item {
+  margin-left: 20px;
+}
+
+.note {
+  font-size: 12px;
+  color: #555;
+  margin-top: 15px;
+}
+.price {
+  font-weight: bold;
+  color: var(--dark);
+}
+.car-detail-top .container .image img {
+  width: 100%;
+}
+.car-detail-top .container .car-info h1 {
+  font-size: var(--sec-title);
+  font-weight: 400;
+}
+.car-detail-top .container .car-info .car-info-info {
+  margin: 20px 0;
+}
+.car-detail-top .container .car-info .car-info-info > div {
+  border-bottom: 1px solid rgba(34, 34, 34, 0.5);
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  margin: 5px 0;
+}
+.car-detail-top .container .car-info .car-info-info > div span:first-child {
+  opacity: 0.7;
+  font-size: var(--p-18);
+}
+.car-detail-top .container .car-info .car-info-info > div span:last-child {
+  font-weight: 500;
+  font-size: var(--p-18);
+}
+.car-detail-top .container .car-info .price-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.car-detail-top .container .car-info .price-block button {
+  flex: 1;
+  background-color: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: .1s
+}
+.clicked {
+  border: 2px solid var(--dark) !important;
+}
+.car-detail-top .container .car-info .price-block button:hover {
+  box-shadow: 2px 2px 3px var(--dark);
+}
+.car-detail-top .container .car-info .price-block button:active {
+  box-shadow: inset 2px 2px 3px var(--dark);
+}
+.car-detail-top .container .car-info .price-block span {
+  flex: 0.8;
+  text-align: right;
+  font-size: var(--p-22);
+}
+.car-detail-top .container .car-info > .questions a {
+  display: block;
+  text-align: center;
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--white);
+  border: 2px solid transparent;
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image .main-photo {
+  width: 500px;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  max-width: 520px;
+  padding-bottom: 10px;
+}
+
+.thumbnails img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border 0.2s ease;
+}
+
+.thumbnails img.active {
+  border-color: #007bff;
+}
+.car-detail-top .container .car-info > .questions a:hover {
+  background-color: var(--white);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.car-detail-bottom {
+  font-size: 14px;
+}
+.car-detail-bottom .container > div {
+  background-color: #F9F9F9;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+  margin: 20px 0 0 0;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title h3 {
+  font-weight: normal;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title button {
+  background: none;
+  border: none;
+  font-size: 30px;
+}
+.car-detail-bottom .container > div .car-detail-bottom-title button.rotate {
+  transform: rotate(180deg);
+}
+.car-detail-bottom .container > div ul {
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 30px 20px;
+  display: none;
+  transition: all 0.3s ease;
+  background: #f9f9f9
+}
+.car-detail-bottom .container > div ul li {
+  border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+  padding: 10px;
+  display: block;
+  font-weight: 400;
+}
+.car-detail-bottom .container > div ul li span:first-child {
+  font-weight: 600;
+}
