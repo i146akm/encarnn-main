@@ -2,7 +2,7 @@ import sqlite3
 
 def drop_table():
     conn = sqlite3.connect('db/test.db')
-    conn.execute("DROP TABLE IF EXISTS vehicles")
+    conn.execute("DROP TABLE IF EXISTS cars")
     conn.commit()
     conn.close()
 
